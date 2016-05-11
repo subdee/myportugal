@@ -1,0 +1,119 @@
+@import "mixin";
+
+.global-map-area {
+  background: url("../images/global-map.jpg") no-repeat;
+}
+
+#header.style2 {
+  .topnav {
+    background: #4d4d4d;
+  }
+  #main-menu ul.menu > li > a, #header.style2 #main-menu ul.menu > li.active > a, #header.style2 #main-menu ul.menu > li > a:hover {
+    background: linear-gradient(90deg, #ff3e3e 50%, #006600 50%);
+    color: #fff;
+  }
+  .topnav ul.quick-menu > li > a {
+    color: #fff;
+  }
+}
+
+section#content {
+  background: url('../images/bg2.jpg') no-repeat top center;
+  background-size: 100%;
+}
+
+a.button {
+  background: #ff3e3e;
+  &:hover {
+    background: #F65656;
+  }
+}
+
+#header .logo a, #footer .logo a, .chaser .logo a {
+  background-image: url('../images/logo.jpg');
+}
+
+.action-buttons {
+  padding-bottom: 100px;
+  text-align: center;
+  font-size: 1.2em;
+  font-weight: bold;
+  & > div {
+    display: inline-block;
+    color: #fff;
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid transparent;
+    width: 300px;
+    text-align: center;
+  }
+}
+
+.action-button-green {
+  background: rgba(25, 181, 243, 0.9);
+
+}
+
+.action-button-red {
+  background: rgba(214, 182, 75, 0.9);
+}
+
+button.green, input[type="button"].button.green, a.button.green, button, input.button[type="button"] {
+  background: #006600;
+}
+
+button.green:hover, input[type="button"].button.green:hover, a.button.green:hover, button:hover, input.button[type="button"]:hover {
+  background: #029F02;
+}
+
+button.red, input[type="button"].button.red, a.button.red {
+  background: #e44049;
+}
+
+.logoimg {
+  vertical-align: inherit;
+}
+
+.listing-style1, .listing-style3 {
+  &.flight {
+    .take-off > .icon {
+      @include transform(rotate(0deg));
+    }
+    .return > .icon {
+      @include transform(rotate(90deg));
+    }
+  }
+}
+
+#tour-details {
+  .flights {
+    .icon {
+      &.take-off {
+        @include transform(rotate(0deg));
+      }
+      &.return {
+        @include transform(rotate(90deg));
+      }
+    }
+  }
+}
+
+#footer {
+  .bottom {
+    #back-to-top {
+      margin-top: 23px;
+      font-size: inherit;
+      color: inherit;
+      i {
+        font-weight: normal;
+      }
+    }
+  }
+}
+
+.input-group-addon {
+  background-color: #7db921;
+  border: none;
+  border-radius: 0;
+  color: #fff;
+}
