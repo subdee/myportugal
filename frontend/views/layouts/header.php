@@ -5,30 +5,27 @@
                 <ul class="menu">
                     <li>
                         <a href="index.html">
-                            <img class="logoimg" src="images/logo-inverse.png" alt="Image Alternative text"
-                                 title="Image Title"/>
+                            <img class="logoimg" src="images/logo-inverse.png" alt="MyPortugal Logo"/>
                         </a>
+                    </li>
+                    <li>
+                        <a href="#"><?= Yii::t('app', 'Fly & Drives') ?></a>
+                    </li>
+                    <li>
+                        <a href="#"><?= Yii::t('app', 'Authentic Portugal - Pusadas and more') ?></a>
                     </li>
                 </ul>
             </nav>
             <ul class="quick-menu pull-right clearfix">
                 <li class="ribbon">
-                    <a href="#">Nederlands</a>
+                    <a href="#"><?= Locale::getDisplayLanguage(Yii::$app->language, Yii::$app->language) ?></a>
                     <ul class="menu mini">
-                        <li><a href="#" title="English">English</a></li>
-                        <li class="active"><a href="#" title="Nederlands">Nederlands</a></li>
-                    </ul>
-                </li>
-                <li class="ribbon currency">
-                    <a href="#" title="">EUR</a>
-                    <ul class="menu mini">
-                        <li><a href="#" title="AUD">AUD</a></li>
-                        <li><a href="#" title="USD">USD</a></li>
-                        <li><a href="#" title="CHF">CHF</a></li>
-                        <li><a href="#" title="DKK">DKK</a></li>
-                        <li class="active"><a href="#" title="EUR">EUR</a></li>
-                        <li><a href="#" title="GBP">GBP</a></li>
-                        <li><a href="#" title="HUF">HUF</a></li>
+                        <li class="<?= Yii::$app->language === 'nl-NL' ? 'active' : '' ?>">
+                            <a href="#"><?= Locale::getDisplayLanguage('nl-NL', Yii::$app->language) ?></a>
+                        </li>
+                        <li class="<?= Yii::$app->language === 'en-GB' ? 'active' : '' ?>">
+                            <a href="#"><?= Locale::getDisplayLanguage('en-GB', Yii::$app->language) ?></a>
+                        </li>
                     </ul>
                 </li>
             </ul>
@@ -50,22 +47,16 @@
 
             <ul class="mobile-topnav container">
                 <li class="ribbon language menu-color-skin">
-                    <a href="#" data-toggle="collapse">NEDERLANDS</a>
+                    <a href="#" data-toggle="collapse">
+                        <?= Locale::getDisplayLanguage(Yii::$app->language, Yii::$app->language) ?>
+                    </a>
                     <ul class="menu mini">
-                        <li><a href="#" title="English">English</a></li>
-                        <li class="active"><a href="#" title="Nederlands">Nederlands</a></li>
-                    </ul>
-                </li>
-                <li class="ribbon currency menu-color-skin">
-                    <a href="#">USD</a>
-                    <ul class="menu mini">
-                        <li><a href="#" title="AUD">AUD</a></li>
-                        <li><a href="#" title="USD">USD</a></li>
-                        <li><a href="#" title="CHF">CHF</a></li>
-                        <li><a href="#" title="DKK">DKK</a></li>
-                        <li class="active"><a href="#" title="EUR">EUR</a></li>
-                        <li><a href="#" title="GBP">GBP</a></li>
-                        <li><a href="#" title="HUF">HUF</a></li>
+                        <li class="<?= Yii::$app->language === 'nl-NL' ? 'active' : '' ?>">
+                            <a href="#"><?= Locale::getDisplayLanguage('nl-NL', Yii::$app->language) ?></a>
+                        </li>
+                        <li class="<?= Yii::$app->language === 'en-GB' ? 'active' : '' ?>">
+                            <a href="#"><?= Locale::getDisplayLanguage('en-GB', Yii::$app->language) ?></a>
+                        </li>
                     </ul>
                 </li>
             </ul>

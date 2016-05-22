@@ -2,19 +2,34 @@
 
 /* @var $this yii\web\View */
 
+use kartik\date\DatePicker;
+use kartik\form\ActiveForm;
 use kartik\icons\Icon;
+use yii\bootstrap\Button;
+use yii\bootstrap\Html;
 
 $this->title = 'myportugal.nl - Homepage';
 ?>
 <div class="container">
     <div class="row action-buttons">
-        <div class="action-button-green">YOU DON'T WANT TO MISS THE NATURE!</div>
-        <br>
-        <div class="action-button-red">GIVE YOURSELF A BREAK AND ESCAPE!</div>
+        <div class="col-md-6">
+            <div class="action-button-green"><?= strtoupper(Yii::t('app',
+                    'You don\'t want to miss the nature!')) ?></div>
+            <br>
+            <div class="action-button-red"><?= strtoupper(Yii::t('app', 'Give yourself a break and escape!')) ?></div>
+        </div>
+        <div class="col-md-3 col-md-offset-3">
+            <div class="custom-trip-btn">
+                <?= Html::a(Button::widget([
+                    'label' => Yii::t('app', 'Get a tailor made quote now'),
+                    'options' => ['class' => 'btn btn-default btn-hollow']
+                ]), '#') ?>
+            </div>
+        </div>
     </div>
     <?php for ($i = 1; $i <= 2; $i++) : ?>
         <div class="row image-box listing-style1 flight">
-            <?php for ($j = 1; $j <= 4; $j++) : ?>
+            <?php for ($j = 1; $j <= 3; $j++) : ?>
                 <div class="col-sm-6 col-md-3">
                     <article class="box">
                         <figure class="animated" data-animation-type="fadeInDown">
@@ -53,6 +68,77 @@ $this->title = 'myportugal.nl - Homepage';
                     </article>
                 </div>
             <?php endfor; ?>
+            <?php if ($i === 1) : ?>
+                <div class="col-sm-6 col-md-3">
+                    <article class="box travel-search-form">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <?php $form = ActiveForm::begin([
+                                    'id' => 'travel-search-form',
+                                    'enableClientValidation' => false,
+                                    'type' => ActiveForm::TYPE_VERTICAL
+                                ]) ?>
+                                <?= $form->field($model, 'dateFrom')->widget(DatePicker::className(), [
+                                    'options' => ['placeholder' => 'From...'],
+                                    'removeButton' => false,
+                                    'pluginOptions' => ['autoclose' => true]
+                                ]) ?>
+                                <?= $form->field($model, 'dateTo')->widget(DatePicker::className(), [
+                                    'options' => ['placeholder' => 'To...'],
+                                    'removeButton' => false,
+                                    'pluginOptions' => ['autoclose' => true]
+                                ]) ?>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <?= $form->field($model, 'adults')->dropDownList(
+                                            [1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5]
+                                        ) ?>
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <?= $form->field($model, 'children')->dropDownList(
+                                            [1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5]
+                                        ) ?>
+                                    </div>
+                                </div>
+
+                                <?= $form->field($model, 'origin')->dropDownList(
+                                    [
+                                        'amsterdam' => Yii::t('app/forms', 'Amsterdam Schiphol'),
+                                        'eindhoven' => Yii::t('app/forms', 'Eindhoven'),
+                                        'brussels' => Yii::t('app/forms', 'Brussels'),
+                                        'dusseldorf' => Yii::t('app/forms', 'Dusseldorf'),
+                                    ]
+                                ) ?>
+
+                                <div class="form-group">
+                                    <div class="col-lg-offset-1 col-lg-11">
+                                        <?= Html::submitButton(Yii::t('app/forms', 'Search'),
+                                            ['class' => 'btn btn-primary']) ?>
+                                    </div>
+                                </div>
+                                <?php ActiveForm::end() ?>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            <?php elseif ($i === 2) : ?>
+                <div class="col-sm-6 col-md-3">
+                    <article class="box destinations">
+                        <h3><?= Yii::t('app', 'Destinations') ?></h3>
+                        <ul>
+                            <li><a href="#">Lisbon</a></li>
+                            <li><a href="#">Algarve</a></li>
+                            <li><a href="#">Portimao</a></li>
+                            <li><a href="#">Faro</a></li>
+                            <li><a href="#">Porto</a></li>
+                            <li><a href="#">Averio</a></li>
+                            <li><a href="#">Batalha</a></li>
+                        </ul>
+                    </article>
+                </div>
+            <?php endif; ?>
         </div>
     <?php endfor; ?>
 </div>
@@ -61,17 +147,21 @@ $this->title = 'myportugal.nl - Homepage';
     <div class="container">
         <div class="table-wrapper hidden-table-sm">
             <div class="col-md-6 description section table-cell">
-                <h1>MyPortugal.nl Header</h1>
+                <h1><?= Yii::t('app', 'MyPortugal.nl Header') ?></h1>
                 <div class="review clearfix">
                     <div class="five-stars-container pull-left">
                         <div class="five-stars transparent-bg" style="width: 100%;"></div>
                     </div>
                     &nbsp;&nbsp;&nbsp;<label>
-                        <small class="white-color uppercase">455 user ratings</small>
+                        <small class="white-color uppercase">
+                            <?= Yii::t('app', '{n,plural,=1{1 user rating} other{# user ratings}', [
+                                'n' => 455
+                            ]) ?>
+                        </small>
                     </label>
                 </div>
                 <br>
-                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
+                <p><?= Yii::t('app', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
                     Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur
                     ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla
                     consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget,
@@ -86,7 +176,7 @@ $this->title = 'myportugal.nl - Homepage';
                     et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante.
                     Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet
                     nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit
-                    cursus nunc,</p>
+                    cursus nunc,') ?></p>
             </div>
             <div class="col-md-6 image-wrapper table-cell hidden-sm">
                 <img src="images/cities.jpg" alt="" class="animated" data-animation-type="fadeInUp">
