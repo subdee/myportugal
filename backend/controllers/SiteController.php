@@ -1,11 +1,11 @@
 <?php
 namespace backend\controllers;
 
+use backend\models\LoginForm;
 use Yii;
-use yii\web\Controller;
-use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
-use common\models\LoginForm;
+use yii\filters\VerbFilter;
+use yii\web\Controller;
 
 /**
  * Site controller
@@ -29,6 +29,9 @@ class SiteController extends Controller
                         'actions' => ['logout', 'index'],
                         'allow' => true,
                         'roles' => ['@'],
+                        'matchCallback' => function () {
+                            return Yii::$app->user->identity->admin;
+                        }
                     ],
                 ],
             ],
