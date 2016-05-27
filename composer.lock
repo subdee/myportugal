@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "dd678c8afcbef51f13f8b4804c046eab",
-    "content-hash": "5427904de18f084f223895e9695dea5d",
+    "hash": "8665935ef0d2d7b3d880edd020a3535e",
+    "content-hash": "5949efb861730a2dd96772fb973aa325",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -299,12 +299,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/lipis/flag-icon-css.git",
-                "reference": "836eca11ecf437ae3d0f0c93dd245ab00d94cee1"
+                "reference": "fc2002547cc287faa2bc5748f1b1d6a594f843cc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lipis/flag-icon-css/zipball/836eca11ecf437ae3d0f0c93dd245ab00d94cee1",
-                "reference": "836eca11ecf437ae3d0f0c93dd245ab00d94cee1",
+                "url": "https://api.github.com/repos/lipis/flag-icon-css/zipball/fc2002547cc287faa2bc5748f1b1d6a594f843cc",
+                "reference": "fc2002547cc287faa2bc5748f1b1d6a594f843cc",
                 "shasum": ""
             },
             "type": "component",
@@ -329,7 +329,7 @@
                 }
             ],
             "description": "CSS for vector based country flags",
-            "time": "2016-05-18 13:50:30"
+            "time": "2016-05-23 16:30:24"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -429,12 +429,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/bootstrap-fileinput.git",
-                "reference": "331c0c7dbbfab512b95c3c1898602c93255f4498"
+                "reference": "6ce9ce6472866fb6b5c891d99461ee59024cc363"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/bootstrap-fileinput/zipball/331c0c7dbbfab512b95c3c1898602c93255f4498",
-                "reference": "331c0c7dbbfab512b95c3c1898602c93255f4498",
+                "url": "https://api.github.com/repos/kartik-v/bootstrap-fileinput/zipball/6ce9ce6472866fb6b5c891d99461ee59024cc363",
+                "reference": "6ce9ce6472866fb6b5c891d99461ee59024cc363",
                 "shasum": ""
             },
             "type": "library",
@@ -474,7 +474,7 @@
                 "progress",
                 "upload"
             ],
-            "time": "2016-05-23 07:15:28"
+            "time": "2016-05-24 12:33:02"
         },
         {
             "name": "kartik-v/bootstrap-star-rating",
@@ -1637,6 +1637,114 @@
             "time": "2014-11-09 19:54:17"
         },
         {
+            "name": "mongodb/mongodb",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mongodb/mongo-php-library.git",
+                "reference": "9e443408328d7e28df3f02a1cefbd9e190a6c977"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mongodb/mongo-php-library/zipball/9e443408328d7e28df3f02a1cefbd9e190a6c977",
+                "reference": "9e443408328d7e28df3f02a1cefbd9e190a6c977",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mongodb": "^1.1.0",
+                "php": ">=5.4"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "MongoDB\\": "src/"
+                },
+                "files": [
+                    "src/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Jeremy Mikola",
+                    "email": "jmikola@gmail.com"
+                },
+                {
+                    "name": "Hannes Magnusson",
+                    "email": "bjori@mongodb.com"
+                },
+                {
+                    "name": "Derick Rethans",
+                    "email": "github@derickrethans.nl"
+                }
+            ],
+            "description": "MongoDB driver library",
+            "homepage": "https://jira.mongodb.org/browse/PHPLIB",
+            "keywords": [
+                "database",
+                "driver",
+                "mongodb",
+                "persistence"
+            ],
+            "time": "2016-04-01 14:27:47"
+        },
+        {
+            "name": "sammaye/yii2-mongodb",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Sammaye/yii2-mongodb.git",
+                "reference": "1c4b866633467025c32a03872fb1cfa46d66e2da"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Sammaye/yii2-mongodb/zipball/1c4b866633467025c32a03872fb1cfa46d66e2da",
+                "reference": "1c4b866633467025c32a03872fb1cfa46d66e2da",
+                "shasum": ""
+            },
+            "require": {
+                "mongodb/mongodb": "^1.0.0",
+                "yiisoft/yii2": ">=2.0.5"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "yii\\mongodb\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Paul Klimov",
+                    "email": "klimov.paul@gmail.com"
+                }
+            ],
+            "description": "MongoDb extension for the Yii framework",
+            "keywords": [
+                "active-record",
+                "mongo",
+                "mongodb",
+                "yii2"
+            ],
+            "time": "2016-05-26 17:07:18"
+        },
+        {
             "name": "swiftmailer/swiftmailer",
             "version": "5.x-dev",
             "source": {
@@ -1695,12 +1803,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "b37b14b8112cc981dd17adda555dca63b70154a9"
+                "reference": "e9cc989c9c3de3326892f9205bfc17e61347fcdc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/b37b14b8112cc981dd17adda555dca63b70154a9",
-                "reference": "b37b14b8112cc981dd17adda555dca63b70154a9",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/e9cc989c9c3de3326892f9205bfc17e61347fcdc",
+                "reference": "e9cc989c9c3de3326892f9205bfc17e61347fcdc",
                 "shasum": ""
             },
             "require": {
@@ -1781,7 +1889,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2016-05-22 10:13:24"
+            "time": "2016-05-26 21:41:47"
         },
         {
             "name": "yiisoft/yii2-bootstrap",
@@ -2292,7 +2400,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "sammaye/yii2-mongodb": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
