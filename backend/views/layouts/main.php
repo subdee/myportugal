@@ -51,7 +51,7 @@ Icon::map($this);
             'url' => ['site/custom'],
             'encode' => false
         ];
-        $menuItems[] = ['label' => Icon::show('cogs') . ' Content', 'url' => ['site/content'], 'encode' => false];
+        $menuItems[] = ['label' => Icon::show('cogs') . ' Bookings', 'url' => ['bookings/index'], 'encode' => false];
         $menuItems[] = '<li>'
                        . Html::beginForm(['/site/logout'], 'post')
                        . Html::submitButton(

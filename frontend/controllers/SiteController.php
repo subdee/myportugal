@@ -1,6 +1,7 @@
 <?php
 namespace frontend\controllers;
 
+use common\models\Booking;
 use common\models\LoginForm;
 use frontend\models\ContactForm;
 use frontend\models\PasswordResetRequestForm;
@@ -66,18 +67,21 @@ class SiteController extends Controller
         ];
     }
 
-    /**
-     * Displays homepage.
-     *
-     * @return mixed
-     */
     public function actionIndex()
     {
         $this->layout = 'home';
         
         $model = new TravelSearchForm();
+        $bookings = Booking::find()->where(['active' => true])->all();
 
-        return $this->render('index', ['model' => $model]);
+        return $this->render('index', ['model' => $model, 'bookings' => $bookings]);
+    }
+
+    public function actionBooking($id)
+    {
+        $model = new TravelSearchForm();
+
+        return $this->render('booking', ['model' => $model]);
     }
 
     /**

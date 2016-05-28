@@ -30,6 +30,17 @@ Icon::map($this);
 
 <div id="page-wrapper">
     <?php $this->beginContent('@app/views/layouts/header.php') ?>
+    <div class="page-title-container">
+        <div class="container">
+            <div class="page-title pull-left">
+                <h2 class="entry-title"><?= Html::encode($this->title) ?></h2>
+            </div>
+            <ul class="breadcrumbs pull-right">
+                <li><a href="#">MYPORTUGAL.NL</a></li>
+                <li class="active"><?= Html::encode($this->title) ?></li>
+            </ul>
+        </div>
+    </div>
     <section id="content">
         <?= $content ?>
     </section>

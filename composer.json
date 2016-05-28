@@ -10,8 +10,11 @@
     "yiisoft/yii2-bootstrap": "*",
     "yiisoft/yii2-swiftmailer": "*",
     "Sammaye/yii2-mongodb": "dev-master",
+    "yii2tech/embedded": "*",
     "kartik-v/yii2-icons": "*",
-    "kartik-v/yii2-widgets": "^3.4"
+    "kartik-v/yii2-widgets": "^3.4",
+    "kartik-v/yii2-grid": "^3.1",
+    "kartik-v/yii2-money": "^1.2"
   },
   "require-dev": {
     "yiisoft/yii2-codeception": "*",

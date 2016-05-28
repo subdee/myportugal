@@ -27,18 +27,25 @@ $this->title = 'myportugal.nl - Homepage';
             </div>
         </div>
     </div>
-    <?php for ($i = 1; $i <= 2; $i++) : ?>
+    <?php for ($i = 0; $i <= 1; $i++) : ?>
         <div class="row image-box listing-style1 flight">
-            <?php for ($j = 1; $j <= 3; $j++) : ?>
+            <?php for ($j = 0; $j <= 2; $j++) : ?>
                 <div class="col-sm-6 col-md-3">
                     <article class="box">
                         <figure class="animated" data-animation-type="fadeInDown">
                             <span><img alt="" src="images/stock-photo-palm-and-beach-58860614.jpg"></span>
                         </figure>
                         <div class="details">
-                            <span class="price"><small>per person</small>€620</span>
-                            <h4 class="box-title">Portugal
-                                <small>3 days / 2 nights</small>
+                            <span class="price">
+                                <small>per person</small>
+                                <?= Yii::$app->formatter->asCurrency($bookings[($i * 3) + $j]->price) ?>
+                            </span>
+                            <h4 class="box-title">
+                                <?= $bookings[($i * 3) + $j]->title ?>
+                                <small>
+                                    <?= $bookings[($i * 3) + $j]->flight->duration ?> days /
+                                    <?= max($bookings[($i * 3) + $j]->flight->duration - 1, 0) ?> nights
+                                </small>
                             </h4>
                             <div class="time">
                                 <div class="take-off">
@@ -46,7 +53,12 @@ $this->title = 'myportugal.nl - Homepage';
                                         <?= Icon::show('plane', ['class' => 'yellow-color']); ?>
                                     </div>
                                     <div>
-                                        <span class="skin-color">Leave</span><br>wed jul 10<br>7:50 Am
+                                        <span class="skin-color">Leave</span>
+                                        <br>
+                                        <?= Yii::$app->formatter->asDate($bookings[($i * 3) + $j]->flight->beginDepartureDate) ?>
+                                        <br>
+                                        <?= Yii::$app->formatter->asTime($bookings[($i * 3) + $j]->flight->beginDepartureDate,
+                                            'short') ?>
                                     </div>
                                 </div>
                                 <div class="return">
@@ -54,7 +66,12 @@ $this->title = 'myportugal.nl - Homepage';
                                         <?= Icon::show('plane', ['class' => 'yellow-color']); ?>
                                     </div>
                                     <div>
-                                        <span class="skin-color">return</span><br>wed jul 10<br>7:50 Am
+                                        <span class="skin-color">return</span>
+                                        <br>
+                                        <?= Yii::$app->formatter->asDate($bookings[($i * 3) + $j]->flight->returnArrivalDate) ?>
+                                        <br>
+                                        <?= Yii::$app->formatter->asTime($bookings[($i * 3) + $j]->flight->returnArrivalDate,
+                                            'short') ?>
                                     </div>
                                 </div>
                             </div>
@@ -62,13 +79,16 @@ $this->title = 'myportugal.nl - Homepage';
                                 room
                             </p>
                             <div class="action">
-                                <a class="button btn-small full-width" href="booking-detailed.html">BOOK NOW</a>
+                                <?= Html::a(strtoupper(Yii::t('app', 'Book now')), [
+                                    'site/offer',
+                                    'id' => $bookings[($i * 3) + $j]->title
+                                ], ['class' => 'button btn-small full-width']) ?>
                             </div>
                         </div>
                     </article>
                 </div>
             <?php endfor; ?>
-            <?php if ($i === 1) : ?>
+            <?php if ($i === 0) : ?>
                 <div class="col-sm-6 col-md-3">
                     <article class="box travel-search-form">
                         <div class="row">
@@ -123,7 +143,7 @@ $this->title = 'myportugal.nl - Homepage';
                         </div>
                     </article>
                 </div>
-            <?php elseif ($i === 2) : ?>
+            <?php elseif ($i === 1) : ?>
                 <div class="col-sm-6 col-md-3">
                     <article class="box destinations">
                         <h3><?= Yii::t('app', 'Destinations') ?></h3>
