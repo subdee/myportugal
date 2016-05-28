@@ -43,7 +43,7 @@ Icon::map($this);
     } else {
         $menuItems[] = [
             'label' => Icon::show('shopping-cart') . ' Orders',
-            'url' => ['site/orders'],
+            'url' => ['orders/index'],
             'encode' => false
         ];
         $menuItems[] = [
