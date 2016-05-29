@@ -3,15 +3,19 @@
 namespace common\models;
 
 use yii\base\Model;
+use yii2tech\embedded\ContainerInterface;
+use yii2tech\embedded\ContainerTrait;
 
-class Hotel extends Model
+class Hotel extends Model implements ContainerInterface
 {
+    use ContainerTrait;
+
     public $name;
     public $address;
     public $phone;
     public $email;
     public $details;
-    public $amenities;
+    public $amenitiesData;
     public $price;
     public $description;
 
@@ -23,7 +27,7 @@ class Hotel extends Model
             'phone',
             'email',
             'details',
-            'amenities',
+            'amenitiesData',
             'price',
             'description'
         ];
@@ -34,5 +38,10 @@ class Hotel extends Model
         return [
             [['name', 'price', 'description'], 'required'],
         ];
+    }
+
+    public function embedAmenities()
+    {
+        return $this->mapEmbeddedList('amenitiesData', Amenity::className());
     }
 }

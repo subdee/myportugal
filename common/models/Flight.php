@@ -23,10 +23,8 @@ class Flight extends Model
             'airline',
             'price',
             'taxes',
-            'beginAirport',
             'beginDepartureDate',
             'beginArrivalDate',
-            'returnAirport',
             'returnDepartureDate',
             'returnArrivalDate',
             'description'
@@ -46,5 +44,26 @@ class Flight extends Model
         $departDate = \DateTime::createFromFormat('U', $this->beginDepartureDate);
 
         return $departDate->diff($returnDate)->days;
+    }
+
+    public function getBeginFlightDuration()
+    {
+        $arriveDate = \DateTime::createFromFormat('U', $this->beginArrivalDate);
+        $departDate = \DateTime::createFromFormat('U', $this->beginDepartureDate);
+
+        return ['hours' => $departDate->diff($arriveDate)->h, 'minutes' => $departDate->diff($arriveDate)->i];
+    }
+
+    public function getReturnFlightDuration()
+    {
+        $arriveDate = \DateTime::createFromFormat('U', $this->returnArrivalDate);
+        $departDate = \DateTime::createFromFormat('U', $this->returnDepartureDate);
+
+        return ['hours' => $departDate->diff($arriveDate)->h, 'minutes' => $departDate->diff($arriveDate)->i];
+    }
+
+    public function getTotalPrice()
+    {
+        return $this->price + $this->taxes;
     }
 }

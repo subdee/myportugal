@@ -56,11 +56,29 @@ class BookingsController extends Controller
         return $this->render('add', ['booking' => $booking, 'hotel' => $hotel, 'flight' => $flight]);
     }
 
+    public function actionUpdate($id)
+    {
+        $booking = Booking::findOne($id);
+        $flight = $booking->flight;
+        $hotel = $booking->hotel;
+
+        if ($booking->load(Yii::$app->request->post())
+            && $booking->flight->load(Yii::$app->request->post())
+            && $booking->hotel->load(Yii::$app->request->post())
+        ) {
+            if ($booking->save()) {
+                $this->redirect(['bookings/index']);
+            }
+        }
+
+        return $this->render('add', ['booking' => $booking, 'hotel' => $hotel, 'flight' => $flight]);
+    }
+
     public function actionActivate($id)
     {
         $booking = Booking::findOne($id);
         if ($booking) {
-            $booking->updateAttributes(['active' => true]);
+            $booking->updateAttributes(['active' => ! $booking->active]);
         }
         $this->redirect(['bookings/index']);
     }

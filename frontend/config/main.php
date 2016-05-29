@@ -38,14 +38,16 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'booking/<slug>' => 'booking/index',
+                'booking/<slug>/book/' => 'booking/book',
+                '/' => 'site/index',
+                '<action>' => 'site/<action>'
             ],
         ],
-        */
     ],
     'params' => $params,
 ];

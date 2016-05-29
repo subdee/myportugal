@@ -74,7 +74,7 @@ button.green, input[type="button"].button.green, a.button.green, button, input.b
 }
 
 button.green:hover, input[type="button"].button.green:hover, a.button.green:hover, button:hover, input.button[type="button"]:hover {
-  background: lighten($green, 80%);
+  background: lighten($green, 10%);
 }
 
 button.red, input[type="button"].button.red, a.button.red {
@@ -148,4 +148,17 @@ article.box {
 .btn-hollow {
   background-color: transparentize($white, 0.5);
   border: none;
+}
+
+.social-icons {
+  li {
+    a {
+      &:hover {
+        i {
+          display: inline-block;
+          @include animation(toBottomFromTop, 0.3s, forwards);
+        }
+      }
+    }
+  }
 }

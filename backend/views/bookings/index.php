@@ -3,6 +3,7 @@
 /* @var $this yii\web\View */
 
 use kartik\grid\GridView;
+use kartik\icons\Icon;
 use yii\bootstrap\Html;
 use yii\helpers\Url;
 
@@ -15,6 +16,13 @@ $this->title = 'My Portugal Backend';
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'export' => false,
+        'rowOptions' => function ($model) {
+            if ($model->active) {
+                return ['class' => 'text-success'];
+            }
+
+            return ['class' => 'text-danger'];
+        },
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'title',
@@ -24,10 +32,20 @@ $this->title = 'My Portugal Backend';
             'updated_on:datetime',
             [
                 'class' => '\kartik\grid\ActionColumn',
-                'template' => '{activate}',
+                'template' => '{update}{activate}',
                 'buttons' => [
+                    'update' => function ($url, $model) {
+                        return Html::a(Icon::show('pencil'), $url, ['title' => Yii::t('app', 'Edit')]);
+                    },
                     'activate' => function ($url, $model) {
-                        return Html::a('Activate', Url::toRoute(['bookings/activate', 'id' => (string)$model->_id]));
+                        return Html::a(
+                            Icon::show('dot-circle-o'),
+                            Url::toRoute(['bookings/activate', 'id' => (string)$model->_id]),
+                            [
+                                'title' => $model->active ? Yii::t('app', 'Deactivate') : Yii::t('app', 'Activate'),
+                                'class' => $model->active ? 'text-danger' : 'text-success'
+                            ]
+                        );
                     }
                 ]
             ]

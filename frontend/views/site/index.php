@@ -80,8 +80,8 @@ $this->title = 'myportugal.nl - Homepage';
                             </p>
                             <div class="action">
                                 <?= Html::a(strtoupper(Yii::t('app', 'Book now')), [
-                                    'site/offer',
-                                    'id' => $bookings[($i * 3) + $j]->title
+                                    'booking/index',
+                                    'slug' => $bookings[($i * 3) + $j]->slug
                                 ], ['class' => 'button btn-small full-width']) ?>
                             </div>
                         </div>
@@ -174,7 +174,7 @@ $this->title = 'myportugal.nl - Homepage';
                     </div>
                     &nbsp;&nbsp;&nbsp;<label>
                         <small class="white-color uppercase">
-                            <?= Yii::t('app', '{n,plural,=1{1 user rating} other{# user ratings}', [
+                            <?= Yii::t('app', '{n,plural,=1{1 user rating} other{# user ratings}}', [
                                 'n' => 455
                             ]) ?>
                         </small>
@@ -199,7 +199,10 @@ $this->title = 'myportugal.nl - Homepage';
                     cursus nunc,') ?></p>
             </div>
             <div class="col-md-6 image-wrapper table-cell hidden-sm">
-                <img src="images/cities.jpg" alt="" class="animated" data-animation-type="fadeInUp">
+                <?= Html::img('@web/images/cities.jpg', [
+                    'class' => 'animated',
+                    'data-animation-type' => 'fadeInUp'
+                ]) ?>
             </div>
         </div>
     </div>
@@ -213,11 +216,7 @@ $this->title = 'myportugal.nl - Homepage';
             <?php for ($i = 1; $i <= 7; $i++) : ?>
                 <li>
                     <a href="#" class="hover-effect">
-                        <img src="images/foto.jpg" alt=""/>
-                        <p class="caption">Praia da Marinha</p>
-                    </a>
-                    <a href="#" class="hover-effect">
-                        <img src="images/foto.jpg" alt=""/>
+                        <?= Html::img('@web/images/foto.jpg') ?>
                         <p class="caption">Praia da Marinha</p>
                     </a>
                 </li>

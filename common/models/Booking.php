@@ -2,7 +2,10 @@
 
 namespace common\models;
 
+use MongoDB\BSON\Binary;
+use yii\behaviors\SluggableBehavior;
 use yii\data\ActiveDataProvider;
+use yii\web\UploadedFile;
 use yii2tech\embedded\mongodb\ActiveRecord;
 
 class Booking extends ActiveRecord
@@ -23,21 +26,24 @@ class Booking extends ActiveRecord
         return [
             '_id',
             'title',
+            'slug',
             'flightData',
             'hotelData',
             'price',
             'description',
+            'origin',
+            'destination',
             'photo',
             'active',
             'created_on',
-            'updated_on'
+            'updated_on',
         ];
     }
 
     public function rules()
     {
         return [
-            [['title', 'price', 'description'], 'required'],
+            [['title', 'price', 'description', 'origin', 'destination', 'photo'], 'required'],
             [['flightData', 'hotelData'], 'yii2tech\embedded\Validator'],
             ['active', 'default', 'value' => false],
             [
@@ -60,6 +66,33 @@ class Booking extends ActiveRecord
     public function embedHotel()
     {
         return $this->mapEmbedded('hotelData', Hotel::className());
+    }
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => SluggableBehavior::className(),
+                'attribute' => 'title',
+            ],
+        ];
+    }
+
+    public function beforeSave($insert)
+    {
+        $tmpname = UploadedFile::getInstance($this, 'photo')->tempName;
+        $this->photo = new Binary(file_get_contents($tmpname), Binary::TYPE_GENERIC);
+
+        return parent::beforeSave($insert);
+    }
+
+    public function afterFind()
+    {
+        parent::afterFind();
+
+        $this->photo = $this->photo->getData();
+
+        return true;
     }
 
     public static function getAll()
