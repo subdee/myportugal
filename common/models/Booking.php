@@ -90,7 +90,7 @@ class Booking extends ActiveRecord
     {
         parent::afterFind();
 
-        $this->photo = $this->photo->getData();
+        $this->photo = $this->photo ? $this->photo->getData() : null;
 
         return true;
     }
