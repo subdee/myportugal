@@ -1,4 +1,6 @@
 <?php
+use kartik\datecontrol\Module;
+
 return [
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'components' => [
@@ -16,5 +18,29 @@ return [
             'class' => '\yii\mongodb\Connection',
             'dsn' => 'mongodb://' . getenv('MONGO_HOST') . ':27017/' . getenv('MONGO_DBNAME') . '',
         ],
+        'formatter' => [
+            'dateFormat' => 'dd.MM.yyyy',
+            'decimalSeparator' => ',',
+            'thousandSeparator' => '.',
+            'currencyCode' => 'EUR',
+        ],
     ],
+    'modules' => [
+        'datecontrol' => [
+            'class' => 'kartik\datecontrol\Module',
+            'saveSettings' => [
+                Module::FORMAT_DATE => 'php:U',
+                Module::FORMAT_TIME => 'php:H:i:s',
+                Module::FORMAT_DATETIME => 'php:U',
+            ],
+            'displayTimezone' => 'Europe/Amsterdam',
+            'saveTimezone' => 'UTC',
+            'autoWidget' => true,
+            'autoWidgetSettings' => [
+                Module::FORMAT_DATE => ['type' => 2, 'pluginOptions' => ['autoclose' => true]],
+                Module::FORMAT_DATETIME => [],
+                Module::FORMAT_TIME => [],
+            ],
+        ]
+    ]
 ];

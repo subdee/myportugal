@@ -1,7 +1,7 @@
 <?php
-use kartik\datetime\DateTimePicker;
-use kartik\file\FileInput;
-use kartik\form\ActiveForm;
+use kartik\datecontrol\DateControl;
+use kartik\widgets\FileInput;
+use kartik\widgets\ActiveForm;
 use kartik\money\MaskMoney;
 use yii\bootstrap\Html;
 
@@ -62,32 +62,44 @@ $form = ActiveForm::begin([
                 ],
                 'options' => ['class' => 'text-right']
             ]) ?>
-            <?= $form->field($flight, 'beginDepartureDate')->widget(DateTimePicker::className(), [
-                'language' => Yii::$app->language,
-                'readonly' => true,
-                'pluginOptions' => [
-                    'autoclose' => true,
+            <?= $form->field($flight, 'beginDepartureDate')->widget(DateControl::className(), [
+                'type' => DateControl::FORMAT_DATETIME,
+                'options' => [
+                    'language' => Yii::$app->language,
+                    'readonly' => true,
+                    'pluginOptions' => [
+                        'autoclose' => true,
+                    ]
                 ]
             ]) ?>
-            <?= $form->field($flight, 'beginArrivalDate')->widget(DateTimePicker::className(), [
-                'language' => Yii::$app->language,
-                'readonly' => true,
-                'pluginOptions' => [
-                    'autoclose' => true,
+            <?= $form->field($flight, 'beginArrivalDate')->widget(DateControl::className(), [
+                'type' => DateControl::FORMAT_DATETIME,
+                'options' => [
+                    'language' => Yii::$app->language,
+                    'readonly' => true,
+                    'pluginOptions' => [
+                        'autoclose' => true,
+                    ]
                 ]
             ]) ?>
-            <?= $form->field($flight, 'returnDepartureDate')->widget(DateTimePicker::className(), [
-                'language' => Yii::$app->language,
-                'readonly' => true,
-                'pluginOptions' => [
-                    'autoclose' => true,
+            <?= $form->field($flight, 'returnDepartureDate')->widget(DateControl::className(), [
+                'type' => DateControl::FORMAT_DATETIME,
+                'options' => [
+                    'language' => Yii::$app->language,
+                    'readonly' => true,
+                    'pluginOptions' => [
+                        'autoclose' => true,
+                    ]
                 ]
             ]) ?>
-            <?= $form->field($flight, 'returnArrivalDate')->widget(DateTimePicker::className(), [
-                'language' => Yii::$app->language,
-                'readonly' => true,
-                'pluginOptions' => [
-                    'autoclose' => true,
+            <?= $form->field($flight, 'returnArrivalDate')->widget(DateControl::className(), [
+                'type' => DateControl::FORMAT_DATETIME,
+                'options' => [
+                    'language' => Yii::$app->language,
+                    'readonly' => true,
+                    'pluginOptions' => [
+                        'autoclose' => true,
+                    ]
                 ]
             ]) ?>
             <?= $form->field($flight, 'description')->textarea() ?>
