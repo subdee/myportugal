@@ -43,7 +43,7 @@ class Booking extends ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'price', 'description', 'origin', 'destination', 'photo'], 'required'],
+            [['title', 'price', 'description', 'origin', 'destination'], 'required'],
             [['flightData', 'hotelData'], 'yii2tech\embedded\Validator'],
             ['active', 'default', 'value' => false],
             [
@@ -78,13 +78,13 @@ class Booking extends ActiveRecord
         ];
     }
 
-    public function beforeSave($insert)
-    {
-        $tmpname = UploadedFile::getInstance($this, 'photo')->tempName;
-        $this->photo = new Binary(file_get_contents($tmpname), Binary::TYPE_GENERIC);
-
-        return parent::beforeSave($insert);
-    }
+//    public function beforeSave($insert)
+//    {
+//        $tmpname = UploadedFile::getInstance($this, 'photo')->tempName;
+//        $this->photo = new Binary(file_get_contents($tmpname), Binary::TYPE_GENERIC);
+//
+//        return parent::beforeSave($insert);
+//    }
 
     public function afterFind()
     {

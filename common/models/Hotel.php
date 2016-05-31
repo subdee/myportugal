@@ -36,7 +36,7 @@ class Hotel extends Model implements ContainerInterface
     public function rules()
     {
         return [
-            [['name', 'price', 'description'], 'required'],
+            [['name', 'price', 'description', 'address', 'phone', 'email', 'details'], 'required'],
         ];
     }
 

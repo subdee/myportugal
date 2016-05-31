@@ -34,7 +34,8 @@ class Flight extends Model
     public function rules()
     {
         return [
-            [['airline', 'price', 'description'], 'required'],
+            [['airline', 'price', 'description', 'taxes', 'beginDepartureDate', 'beginArrivalDate', 
+                'returnDepartureDate', 'returnArrivalDate'], 'required'],
         ];
     }
 
