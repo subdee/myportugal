@@ -4,9 +4,11 @@ namespace backend\controllers;
 use common\models\Booking;
 use common\models\Flight;
 use common\models\Hotel;
+use common\models\Image;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
+use yii\web\UploadedFile;
 
 class BookingsController extends Controller
 {
@@ -43,11 +45,14 @@ class BookingsController extends Controller
         $booking = new Booking();
         $flight = new Flight();
         $hotel = new Hotel();
+        $image = new Image();
 
         if ($booking->load(Yii::$app->request->post())
             && $booking->flight->load(Yii::$app->request->post())
             && $booking->hotel->load(Yii::$app->request->post())
         ) {
+            $image->create(UploadedFile::getInstance($booking, 'photo'));
+            $booking->photo = $image;
             if ($booking->save()) {
                 $this->redirect(['bookings/index']);
             }
@@ -58,14 +63,18 @@ class BookingsController extends Controller
 
     public function actionUpdate($id)
     {
+        /** @var Booking $booking */
         $booking = Booking::findOne($id);
         $flight = $booking->flight;
         $hotel = $booking->hotel;
+        $image = $booking->photo ?: new Image();
 
         if ($booking->load(Yii::$app->request->post())
             && $booking->flight->load(Yii::$app->request->post())
             && $booking->hotel->load(Yii::$app->request->post())
         ) {
+            $image->create(UploadedFile::getInstance($booking, 'photoFile'));
+            $booking->photo = $image;
             if ($booking->save()) {
                 $this->redirect(['bookings/index']);
             }

@@ -18,7 +18,14 @@ $this->title = $booking->title;
                 <div class="tab-content">
                     <div id="photo-tab" class="tab-pane fade in active">
                         <div class="featured-image image-container">
-                            <?= Html::img('@web/images/pool.jpg') ?>
+                            <?php if ($booking->photo->content) : ?>
+                                <?= Html::img('data://' . $booking->photo->type . ';base64, ' . $booking->photo->content,
+                                    [
+                                        'alt' => $booking->photo->filename
+                                    ]) ?>
+                            <?php else : ?>
+                                <?= Html::img('@web/images/no-image.png') ?>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>

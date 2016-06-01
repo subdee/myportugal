@@ -40,7 +40,7 @@ a.button {
 }
 
 #header .logo a, #footer .logo a, .chaser .logo a {
-  background-image: url('../images/logo.jpg');
+  background-image: url('../images/logo.png');
 }
 
 .action-buttons {
@@ -142,6 +142,10 @@ article.box {
   }
   &.destinations {
     text-align: center;
+  }
+  figure img {
+    min-height: 160px;
+    max-height: 160px;
   }
 }
 

@@ -2,14 +2,19 @@
 
 namespace common\models;
 
-use MongoDB\BSON\Binary;
 use yii\behaviors\SluggableBehavior;
 use yii\data\ActiveDataProvider;
-use yii\web\UploadedFile;
 use yii2tech\embedded\mongodb\ActiveRecord;
 
+/**
+ * @property Flight $flight
+ * @property Hotel $hotel
+ * @property Image $photo
+ */
 class Booking extends ActiveRecord
 {
+    public $photoFile;
+
     /**
      * @return string the name of the index associated with this ActiveRecord class.
      */
@@ -33,7 +38,7 @@ class Booking extends ActiveRecord
             'description',
             'origin',
             'destination',
-            'photo',
+            'photoData',
             'active',
             'created_on',
             'updated_on',
@@ -44,7 +49,8 @@ class Booking extends ActiveRecord
     {
         return [
             [['title', 'price', 'description', 'origin', 'destination'], 'required'],
-            [['flightData', 'hotelData'], 'yii2tech\embedded\Validator'],
+            [['flightData', 'hotelData', 'photoData'], 'yii2tech\embedded\Validator'],
+            ['photoFile', 'image', 'maxSize' => 10 * 1024 * 1024],
             ['active', 'default', 'value' => false],
             [
                 'created_on',
@@ -68,6 +74,11 @@ class Booking extends ActiveRecord
         return $this->mapEmbedded('hotelData', Hotel::className());
     }
 
+    public function embedPhoto()
+    {
+        return $this->mapEmbedded('photoData', Image::className());
+    }
+
     public function behaviors()
     {
         return [
@@ -76,23 +87,6 @@ class Booking extends ActiveRecord
                 'attribute' => 'title',
             ],
         ];
-    }
-
-//    public function beforeSave($insert)
-//    {
-//        $tmpname = UploadedFile::getInstance($this, 'photo')->tempName;
-//        $this->photo = new Binary(file_get_contents($tmpname), Binary::TYPE_GENERIC);
-//
-//        return parent::beforeSave($insert);
-//    }
-
-    public function afterFind()
-    {
-        parent::afterFind();
-
-        $this->photo = $this->photo ? $this->photo->getData() : null;
-
-        return true;
     }
 
     public static function getAll()

@@ -1,8 +1,7 @@
 <?php
 use kartik\datecontrol\DateControl;
-use kartik\widgets\FileInput;
 use kartik\widgets\ActiveForm;
-use kartik\money\MaskMoney;
+use kartik\widgets\FileInput;
 use yii\bootstrap\Html;
 
 $form = ActiveForm::begin([
@@ -16,19 +15,17 @@ $form = ActiveForm::begin([
         <h4>Booking details</h4>
         <div class="col-md-6 col-sm-12">
             <?= $form->field($booking, 'title') ?>
-            <?= $form->field($booking, 'price')->widget(MaskMoney::className(), [
-                'pluginOptions' => [
-                    'allowNegative' => false,
-                    'suffix' => '€'
-                ],
-                'options' => ['class' => 'text-right']
+            <?= $form->field($booking, 'price', [
+                'addon' => [
+                    'prepend' => ['content' => '€']
+                ]
             ]) ?>
             <?= $form->field($booking, 'description')->textarea() ?>
         </div>
         <div class="col-md-6 col-sm-12">
             <?= $form->field($booking, 'origin') ?>
             <?= $form->field($booking, 'destination') ?>
-            <?= $form->field($booking, 'photo')->widget(FileInput::className(), [
+            <?= $form->field($booking, 'photoFile')->widget(FileInput::className(), [
                 'language' => Yii::$app->language,
                 'resizeImages' => true,
                 'options' => ['multiple' => false, 'accept' => 'image/*'],
@@ -48,19 +45,15 @@ $form = ActiveForm::begin([
         <fieldset>
             <h4>Flight details</h4>
             <?= $form->field($flight, 'airline') ?>
-            <?= $form->field($flight, 'price')->widget(MaskMoney::className(), [
-                'pluginOptions' => [
-                    'allowNegative' => false,
-                    'suffix' => '€'
-                ],
-                'options' => ['class' => 'text-right']
+            <?= $form->field($flight, 'price', [
+                'addon' => [
+                    'prepend' => ['content' => '€']
+                ]
             ]) ?>
-            <?= $form->field($flight, 'taxes')->widget(MaskMoney::className(), [
-                'pluginOptions' => [
-                    'allowNegative' => false,
-                    'suffix' => '€'
-                ],
-                'options' => ['class' => 'text-right']
+            <?= $form->field($flight, 'taxes', [
+                'addon' => [
+                    'prepend' => ['content' => '€']
+                ]
             ]) ?>
             <?= $form->field($flight, 'beginDepartureDate')->widget(DateControl::className(), [
                 'type' => DateControl::FORMAT_DATETIME,
@@ -113,12 +106,10 @@ $form = ActiveForm::begin([
             <?= $form->field($hotel, 'phone') ?>
             <?= $form->field($hotel, 'email') ?>
             <?= $form->field($hotel, 'details')->textarea() ?>
-            <?= $form->field($hotel, 'price')->widget(MaskMoney::className(), [
-                'pluginOptions' => [
-                    'allowNegative' => false,
-                    'suffix' => '€'
-                ],
-                'options' => ['class' => 'text-right']
+            <?= $form->field($hotel, 'price', [
+                'addon' => [
+                    'prepend' => ['content' => '€']
+                ]
             ]) ?>
             <?= $form->field($hotel, 'description')->textarea() ?>
         </fieldset>
@@ -127,7 +118,10 @@ $form = ActiveForm::begin([
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
-            <?= Html::submitButton('Create new booking', ['class' => 'btn btn-primary']) ?>
+            <?= Html::submitButton(
+                $booking->isNewRecord ? 'Create new booking' : 'Update booking',
+                ['class' => 'btn btn-primary']
+            ) ?>
         </div>
         <p class="help-block">
             The booking created will not be active. You can activate it in the main bookings page.
