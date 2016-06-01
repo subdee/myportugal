@@ -3,6 +3,7 @@
 namespace common\models;
 
 use yii\behaviors\SluggableBehavior;
+use yii\behaviors\TimestampBehavior;
 use yii\data\ActiveDataProvider;
 use yii2tech\embedded\mongodb\ActiveRecord;
 
@@ -52,15 +53,6 @@ class Booking extends ActiveRecord
             [['flightData', 'hotelData', 'photoData'], 'yii2tech\embedded\Validator'],
             ['photoFile', 'image', 'maxSize' => 10 * 1024 * 1024],
             ['active', 'default', 'value' => false],
-            [
-                'created_on',
-                'default',
-                'value' => time(),
-                'when' => function ($model) {
-                    return $model->isNewRecord;
-                }
-            ],
-            ['updated_on', 'default', 'value' => time()]
         ];
     }
 
@@ -85,6 +77,12 @@ class Booking extends ActiveRecord
             [
                 'class' => SluggableBehavior::className(),
                 'attribute' => 'title',
+            ],
+            [
+                'class' => TimestampBehavior::className(),
+                'createdAtAttribute' => 'created_on',
+                'updatedAtAttribute' => 'updated_on',
+                'value' => time(),
             ],
         ];
     }

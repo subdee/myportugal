@@ -51,8 +51,11 @@ class BookingsController extends Controller
             && $booking->flight->load(Yii::$app->request->post())
             && $booking->hotel->load(Yii::$app->request->post())
         ) {
-            $image->create(UploadedFile::getInstance($booking, 'photo'));
-            $booking->photo = $image;
+            $newImage = UploadedFile::getInstance($booking, 'photoFile');
+            if ($newImage) {
+                $image->create($newImage);
+                $booking->photo = $image;
+            }
             if ($booking->save()) {
                 $this->redirect(['bookings/index']);
             }
@@ -73,8 +76,11 @@ class BookingsController extends Controller
             && $booking->flight->load(Yii::$app->request->post())
             && $booking->hotel->load(Yii::$app->request->post())
         ) {
-            $image->create(UploadedFile::getInstance($booking, 'photoFile'));
-            $booking->photo = $image;
+            $newImage = UploadedFile::getInstance($booking, 'photoFile');
+            if ($newImage) {
+                $image->create($newImage);
+                $booking->photo = $image;
+            }
             if ($booking->save()) {
                 $this->redirect(['bookings/index']);
             }
