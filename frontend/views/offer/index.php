@@ -177,8 +177,8 @@ $this->title = $offer->title;
                         <i class="soap-icon-clock"></i>
                         <dl>
                             <dt class="skin-color"><?= Yii::t('app', 'Total Time') ?>:</dt>
-                            <dd><?= Yii::t('app', '{days} days', [
-                                    'days' => $offer->flight->duration
+                            <dd><?= Yii::t('app', '{n,plural,=1{# day} other{# days}}', [
+                                    'n' => $offer->flight->duration
                                 ]) ?></dd>
                         </dl>
                     </div>

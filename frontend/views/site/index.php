@@ -52,8 +52,12 @@ $this->title = 'myportugal.nl - Homepage';
                             <h4 class="box-title">
                                 <?= $offer->title ?>
                                 <small>
-                                    <?= $offer->flight->duration ?> days /
-                                    <?= max($offer->flight->duration - 1, 0) ?> nights
+                                    <?= Yii::t('app', '{n,plural,=1{# day} other{# days}}', [
+                                        'n' => $offer->flight->duration
+                                    ]) ?> /
+                                    <?= Yii::t('app', '{n,plural,=1{# night} other{# nights}}', [
+                                        'n' => max($offer->flight->duration - 1, 0)
+                                    ]) ?>
                                 </small>
                             </h4>
                             <div class="time">
