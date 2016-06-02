@@ -10,7 +10,7 @@ use yii\helpers\Url;
 $this->title = 'My Portugal Backend';
 ?>
 <div class="row">
-    <?= Html::a('Create new', ['bookings/add'], ['class' => 'btn btn-success']) ?>
+    <?= Html::a('Create new', ['offers/add'], ['class' => 'btn btn-success']) ?>
 </div>
 <div class="row">
     <?= GridView::widget([
@@ -40,7 +40,7 @@ $this->title = 'My Portugal Backend';
                     'activate' => function ($url, $model) {
                         return Html::a(
                             Icon::show('dot-circle-o'),
-                            Url::toRoute(['bookings/activate', 'id' => (string)$model->_id]),
+                            Url::toRoute(['offers/activate', 'id' => (string)$model->_id]),
                             [
                                 'title' => $model->active ? Yii::t('app', 'Deactivate') : Yii::t('app', 'Activate'),
                                 'class' => $model->active ? 'text-danger' : 'text-success'

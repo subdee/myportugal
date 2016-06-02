@@ -2,4 +2,4 @@
     Create new booking
 </h3>
 <hr>
-<?= $this->render('form', ['booking' => $booking, 'hotel' => $hotel, 'flight' => $flight]);
+<?= $this->render('form', ['offer' => $offer, 'hotel' => $hotel, 'flight' => $flight]);

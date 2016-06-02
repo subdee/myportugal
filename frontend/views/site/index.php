@@ -31,14 +31,14 @@ $this->title = 'myportugal.nl - Homepage';
     <?php for ($i = 0; $i <= 1; $i++) : ?>
         <div class="row image-box listing-style1 flight">
             <?php for ($j = 0; $j <= 2; $j++) : ?>
-                <?php $booking = $bookings[($i * 3) + $j] ?>
+                <?php $offer = $offers[($i * 3) + $j] ?>
                 <div class="col-sm-6 col-md-3">
                     <article class="box">
                         <figure class="animated" data-animation-type="fadeInDown">
                             <span>
-                                <?php if ($booking->photo->content) : ?>
-                                    <img alt="<?= $booking->photo->filename ?>"
-                                         src="data://<?= $booking->photo->type ?>;base64, <?= $booking->photo->content ?>">
+                                <?php if ($offer->photo->content) : ?>
+                                    <img alt="<?= $offer->photo->filename ?>"
+                                         src="data://<?= $offer->photo->type ?>;base64, <?= $offer->photo->content ?>">
                                 <?php else : ?>
                                     <img src="<?= Url::to('@web/images/no-image.png') ?>" width="238px">
                                 <?php endif; ?>
@@ -47,13 +47,13 @@ $this->title = 'myportugal.nl - Homepage';
                         <div class="details">
                             <span class="price">
                                 <small>per person</small>
-                                <?= Yii::$app->formatter->asCurrency($booking->price) ?>
+                                <?= Yii::$app->formatter->asCurrency($offer->price) ?>
                             </span>
                             <h4 class="box-title">
-                                <?= $booking->title ?>
+                                <?= $offer->title ?>
                                 <small>
-                                    <?= $booking->flight->duration ?> days /
-                                    <?= max($booking->flight->duration - 1, 0) ?> nights
+                                    <?= $offer->flight->duration ?> days /
+                                    <?= max($offer->flight->duration - 1, 0) ?> nights
                                 </small>
                             </h4>
                             <div class="time">
@@ -64,9 +64,9 @@ $this->title = 'myportugal.nl - Homepage';
                                     <div>
                                         <span class="skin-color">Leave</span>
                                         <br>
-                                        <?= Yii::$app->formatter->asDate($booking->flight->beginDepartureDate) ?>
+                                        <?= Yii::$app->formatter->asDate($offer->flight->beginDepartureDate) ?>
                                         <br>
-                                        <?= Yii::$app->formatter->asTime($booking->flight->beginDepartureDate,
+                                        <?= Yii::$app->formatter->asTime($offer->flight->beginDepartureDate,
                                             'short') ?>
                                     </div>
                                 </div>
@@ -77,9 +77,9 @@ $this->title = 'myportugal.nl - Homepage';
                                     <div>
                                         <span class="skin-color">return</span>
                                         <br>
-                                        <?= Yii::$app->formatter->asDate($booking->flight->returnArrivalDate) ?>
+                                        <?= Yii::$app->formatter->asDate($offer->flight->returnArrivalDate) ?>
                                         <br>
-                                        <?= Yii::$app->formatter->asTime($booking->flight->returnArrivalDate,
+                                        <?= Yii::$app->formatter->asTime($offer->flight->returnArrivalDate,
                                             'short') ?>
                                     </div>
                                 </div>
@@ -89,8 +89,8 @@ $this->title = 'myportugal.nl - Homepage';
                             </p>
                             <div class="action">
                                 <?= Html::a(strtoupper(Yii::t('app', 'Book now')), [
-                                    'booking/index',
-                                    'slug' => $booking->slug
+                                    'offer/index',
+                                    'slug' => $offer->slug
                                 ], ['class' => 'button btn-small full-width']) ?>
                             </div>
                         </div>

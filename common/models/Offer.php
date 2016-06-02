@@ -12,7 +12,7 @@ use yii2tech\embedded\mongodb\ActiveRecord;
  * @property Hotel $hotel
  * @property Image $photo
  */
-class Booking extends ActiveRecord
+class Offer extends ActiveRecord
 {
     public $photoFile;
 
@@ -21,7 +21,7 @@ class Booking extends ActiveRecord
      */
     public static function collectionName()
     {
-        return 'bookings';
+        return 'offers';
     }
 
     /**

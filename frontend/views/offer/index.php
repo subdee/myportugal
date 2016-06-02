@@ -9,7 +9,7 @@ use yii\helpers\Url;
 
 BootstrapPluginAsset::register($this);
 
-$this->title = $booking->title;
+$this->title = $offer->title;
 ?>
 <div class="container flight-detail-page">
     <div class="row">
@@ -18,10 +18,10 @@ $this->title = $booking->title;
                 <div class="tab-content">
                     <div id="photo-tab" class="tab-pane fade in active">
                         <div class="featured-image image-container">
-                            <?php if ($booking->photo->content) : ?>
-                                <?= Html::img('data://' . $booking->photo->type . ';base64, ' . $booking->photo->content,
+                            <?php if ($offer->photo->content) : ?>
+                                <?= Html::img('data://' . $offer->photo->type . ';base64, ' . $offer->photo->content,
                                     [
-                                        'alt' => $booking->photo->filename
+                                        'alt' => $offer->photo->filename
                                     ]) ?>
                             <?php else : ?>
                                 <?= Html::img('@web/images/no-image.png') ?>
@@ -46,13 +46,13 @@ $this->title = $booking->title;
                             <div class="col-md-4 table-cell travelo-box">
                                 <dl class="term-description">
                                     <dt><?= Yii::t('app', 'Airline') ?>:</dt>
-                                    <dd><?= $booking->flight->airline ?></dd>
+                                    <dd><?= $offer->flight->airline ?></dd>
                                     <dt><?= Yii::t('app', 'Base fare') ?>:</dt>
-                                    <dd><?= Yii::$app->formatter->asCurrency($booking->flight->price) ?></dd>
+                                    <dd><?= Yii::$app->formatter->asCurrency($offer->flight->price) ?></dd>
                                     <dt><?= Yii::t('app', 'Taxes & Fees') ?>:</dt>
-                                    <dd><?= Yii::$app->formatter->asCurrency($booking->flight->taxes) ?></dd>
+                                    <dd><?= Yii::$app->formatter->asCurrency($offer->flight->taxes) ?></dd>
                                     <dt><?= Yii::t('app', 'total price') ?>:</dt>
-                                    <dd><?= Yii::$app->formatter->asCurrency($booking->flight->totalPrice) ?></dd>
+                                    <dd><?= Yii::$app->formatter->asCurrency($offer->flight->totalPrice) ?></dd>
                                 </dl>
                             </div>
                             <div class="col-md-8 table-cell">
@@ -61,8 +61,8 @@ $this->title = $booking->title;
                                         <a href="#" class="button btn-mini yellow pull-right">DIRECT</a>
                                         <h4 class="box-title">
                                             <?= Yii::t('app', '{origin} to {destination}', [
-                                                'origin' => $booking->origin,
-                                                'destination' => $booking->destination
+                                                'origin' => $offer->origin,
+                                                'destination' => $offer->destination
                                             ]) ?>
                                             <small><?= Yii::t('app', 'Return flight') ?></small>
                                         </h4>
@@ -73,25 +73,25 @@ $this->title = $booking->title;
                                                 <div class="timing">
                                                     <div class="check-in">
                                                         <label><?= Yii::t('app', 'Take off') ?></label>
-                                                        <span><?= Yii::$app->formatter->asDatetime($booking->flight->beginDepartureDate) ?></span>
+                                                        <span><?= Yii::$app->formatter->asDatetime($offer->flight->beginDepartureDate) ?></span>
                                                     </div>
                                                     <div class="duration text-center">
                                                         <?= Icon::show('clock-o') ?>
                                                         <span>
                                                             <?= Yii::t('app', '{hours}h {minutes}m', [
-                                                                'hours' => $booking->flight->beginFlightDuration['hours'],
-                                                                'minutes' => $booking->flight->beginFlightDuration['minutes'],
+                                                                'hours' => $offer->flight->beginFlightDuration['hours'],
+                                                                'minutes' => $offer->flight->beginFlightDuration['minutes'],
                                                             ]) ?>
                                                         </span>
                                                     </div>
                                                     <div class="check-out">
                                                         <label><?= Yii::t('app', 'Landing') ?></label>
-                                                        <span><?= Yii::$app->formatter->asDatetime($booking->flight->beginArrivalDate) ?></span>
+                                                        <span><?= Yii::$app->formatter->asDatetime($offer->flight->beginArrivalDate) ?></span>
                                                     </div>
                                                 </div>
                                                 <label class="layover">
                                                     <?= Yii::t('app', 'Duration : {days}d', [
-                                                        'days' => $booking->flight->duration
+                                                        'days' => $offer->flight->duration
                                                     ]) ?>
                                                 </label>
                                             </div>
@@ -101,20 +101,20 @@ $this->title = $booking->title;
                                                 <div class="timing">
                                                     <div class="check-in">
                                                         <label><?= Yii::t('app', 'Take off') ?></label>
-                                                        <span><?= Yii::$app->formatter->asDatetime($booking->flight->returnDepartureDate) ?></span>
+                                                        <span><?= Yii::$app->formatter->asDatetime($offer->flight->returnDepartureDate) ?></span>
                                                     </div>
                                                     <div class="duration text-center">
                                                         <?= Icon::show('clock-o') ?>
                                                         <span>
                                                             <?= Yii::t('app', '{hours}h {minutes}m', [
-                                                                'hours' => $booking->flight->returnFlightDuration['hours'],
-                                                                'minutes' => $booking->flight->returnFlightDuration['minutes'],
+                                                                'hours' => $offer->flight->returnFlightDuration['hours'],
+                                                                'minutes' => $offer->flight->returnFlightDuration['minutes'],
                                                             ]) ?>
                                                         </span>
                                                     </div>
                                                     <div class="check-out">
                                                         <label><?= Yii::t('app', 'Landing') ?></label>
-                                                        <span><?= Yii::$app->formatter->asDatetime($booking->flight->returnArrivalDate) ?></span>
+                                                        <span><?= Yii::$app->formatter->asDatetime($offer->flight->returnArrivalDate) ?></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -126,15 +126,15 @@ $this->title = $booking->title;
                         <div class="long-description">
                             <h2><?= Yii::t('app', 'About Flight') ?></h2>
                             <p>
-                                <?= $booking->flight->description ?>
+                                <?= $offer->flight->description ?>
                             </p>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="hotel-details">
                         <h2><?= Yii::t('app', 'Hotel Details') ?></h2>
-                        <p><?= $booking->hotel->details ?></p>
+                        <p><?= $offer->hotel->details ?></p>
                         <ul class="amenities clearfix style1 box">
-                            <?php foreach ($booking->hotel->amenities as $amenity) : ?>
+                            <?php foreach ($offer->hotel->amenities as $amenity) : ?>
                                 <li class="col-md-4 col-sm-6">
                                     <div class="icon-box style1">
                                         <?= Icon::show($amenity['icon']) ?>
@@ -146,7 +146,7 @@ $this->title = $booking->title;
                         <div class="long-description">
                             <h2><?= Yii::t('app', 'About Hotel') ?></h2>
                             <p>
-                                <?= $booking->hotel->description ?>
+                                <?= $offer->hotel->description ?>
                             </p>
                         </div>
                     </div>
@@ -161,15 +161,15 @@ $this->title = $booking->title;
                 <div class="details">
                     <h2 class="box-title">
                         <?= Yii::t('app', '{origin} to {destination}', [
-                            'origin' => $booking->origin,
-                            'destination' => $booking->destination
+                            'origin' => $offer->origin,
+                            'destination' => $offer->destination
                         ]) ?>
                         <small><?= Yii::t('app', 'Return flight') ?></small>
                     </h2>
                                 <span class="price clearfix">
                                     <small class="pull-left"><?= Yii::t('app', 'per person') ?></small>
                                     <span class="pull-right">
-                                        <?= Yii::$app->formatter->asCurrency($booking->price) ?>
+                                        <?= Yii::$app->formatter->asCurrency($offer->price) ?>
                                     </span>
                                 </span>
 
@@ -178,15 +178,15 @@ $this->title = $booking->title;
                         <dl>
                             <dt class="skin-color"><?= Yii::t('app', 'Total Time') ?>:</dt>
                             <dd><?= Yii::t('app', '{days} days', [
-                                    'days' => $booking->flight->duration
+                                    'days' => $offer->flight->duration
                                 ]) ?></dd>
                         </dl>
                     </div>
 
                     <p class="description">
-                        <?= $booking->description ?>
+                        <?= $offer->description ?>
                     </p>
-                    <a href="<?= Url::toRoute(['booking/book', 'slug' => $booking->slug]) ?>"
+                    <a href="<?= Url::toRoute(['offer/book', 'slug' => $offer->slug]) ?>"
                        class="button green full-width uppercase btn-medium">
                         <?= Yii::t('app', 'Book now') ?>
                     </a>

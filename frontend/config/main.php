@@ -42,8 +42,8 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                'booking/<slug>' => 'booking/index',
-                'booking/<slug>/book/' => 'booking/book',
+                '<slug>' => 'offer/index',
+                '<slug>/book/' => 'offer/book',
                 '/' => 'site/index',
                 '<action>' => 'site/<action>'
             ],

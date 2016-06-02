@@ -5,27 +5,27 @@ use kartik\widgets\FileInput;
 use yii\bootstrap\Html;
 
 $form = ActiveForm::begin([
-    'id' => 'new-booking-form',
+    'id' => 'new-offer-form',
     'type' => ActiveForm::TYPE_VERTICAL,
     'options' => ['enctype' => 'multipart/form-data']
 ]) ?>
 
 <div class="row">
     <fieldset>
-        <h4>Booking details</h4>
+        <h4>Offer details</h4>
         <div class="col-md-6 col-sm-12">
-            <?= $form->field($booking, 'title') ?>
-            <?= $form->field($booking, 'price', [
+            <?= $form->field($offer, 'title') ?>
+            <?= $form->field($offer, 'price', [
                 'addon' => [
                     'prepend' => ['content' => '€']
                 ]
             ]) ?>
-            <?= $form->field($booking, 'description')->textarea() ?>
+            <?= $form->field($offer, 'description')->textarea() ?>
         </div>
         <div class="col-md-6 col-sm-12">
-            <?= $form->field($booking, 'origin') ?>
-            <?= $form->field($booking, 'destination') ?>
-            <?= $form->field($booking, 'photoFile')->widget(FileInput::className(), [
+            <?= $form->field($offer, 'origin') ?>
+            <?= $form->field($offer, 'destination') ?>
+            <?= $form->field($offer, 'photoFile')->widget(FileInput::className(), [
                 'language' => Yii::$app->language,
                 'resizeImages' => true,
                 'options' => ['multiple' => false, 'accept' => 'image/*'],
@@ -119,12 +119,12 @@ $form = ActiveForm::begin([
     <div class="col-md-6">
         <div class="form-group">
             <?= Html::submitButton(
-                $booking->isNewRecord ? 'Create new booking' : 'Update booking',
+                $offer->isNewRecord ? 'Create new offer' : 'Update offer',
                 ['class' => 'btn btn-primary']
             ) ?>
         </div>
         <p class="help-block">
-            The booking created will not be active. You can activate it in the main bookings page.
+            The offer created will not be active. You can activate it in the main offers page.
         </p>
     </div>
 </div>
