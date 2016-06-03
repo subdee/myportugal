@@ -27,7 +27,7 @@ $action-yellow: rgba(214, 182, 75, 0.9);
   }
 }
 
-section#content-home {
+section#content {
   background: url('../images/bg2.jpg') no-repeat top center;
   background-size: 100%;
 }
@@ -109,7 +109,18 @@ button.red, input[type="button"].button.red, a.button.red {
   }
 }
 
-#footer {
+#footer, #footer .gray-area {
+  background: $grey-bg;
+  color: $white;
+  h2, .contact-phone {
+    color: $white;
+    i {
+      color: $red;
+    }
+  }
+  input, button, select, textarea {
+    color: $grey-bg;
+  }
   .bottom {
     #back-to-top {
       margin-top: 23px;
@@ -157,7 +168,9 @@ article.box {
 .social-icons {
   li {
     a {
+      background-color: $red;
       &:hover {
+        background-color: $red;
         i {
           display: inline-block;
           @include animation(toBottomFromTop, 0.3s, forwards);
@@ -165,4 +178,8 @@ article.box {
       }
     }
   }
+}
+
+input.input-text, select, textarea, span.custom-select {
+  background-color: #dadada;
 }

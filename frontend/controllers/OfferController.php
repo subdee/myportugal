@@ -20,6 +20,11 @@ class OfferController extends Controller
 
     public function actionBook($slug)
     {
-        
+        $offer = Offer::findOne(['slug' => $slug]);
+        if ( ! $offer) {
+            throw new NotFoundHttpException(Yii::t('app', 'This offer does not exist'));
+        }
+
+        return $this->render('book', ['offer' => $offer]);
     }
 }

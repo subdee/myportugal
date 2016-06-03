@@ -11,7 +11,7 @@ BootstrapPluginAsset::register($this);
 
 $this->title = $offer->title;
 ?>
-<div class="container flight-detail-page">
+<div class="flight-detail-page">
     <div class="row">
         <div id="main" class="col-md-9">
             <div class="tab-container style1 box" id="flight-main-content">
@@ -60,34 +60,14 @@ $this->title = $offer->title;
                                     <div class="travelo-box">
                                         <a href="#" class="button btn-mini yellow pull-right">DIRECT</a>
                                         <h4 class="box-title">
-                                            <?= Yii::t('app', '{origin} to {destination}', [
-                                                'origin' => $offer->origin,
-                                                'destination' => $offer->destination
-                                            ]) ?>
-                                            <small><?= Yii::t('app', 'Return flight') ?></small>
+                                            <?= $this->render('title', ['offer' => $offer]) ?>
                                         </h4>
                                     </div>
                                     <div class="table-wrapper flights">
                                         <div class="table-row first-flight">
                                             <div class="table-cell timing-detail">
                                                 <div class="timing">
-                                                    <div class="check-in">
-                                                        <label><?= Yii::t('app', 'Take off') ?></label>
-                                                        <span><?= Yii::$app->formatter->asDatetime($offer->flight->beginDepartureDate) ?></span>
-                                                    </div>
-                                                    <div class="duration text-center">
-                                                        <?= Icon::show('clock-o') ?>
-                                                        <span>
-                                                            <?= Yii::t('app', '{hours}h {minutes}m', [
-                                                                'hours' => $offer->flight->beginFlightDuration['hours'],
-                                                                'minutes' => $offer->flight->beginFlightDuration['minutes'],
-                                                            ]) ?>
-                                                        </span>
-                                                    </div>
-                                                    <div class="check-out">
-                                                        <label><?= Yii::t('app', 'Landing') ?></label>
-                                                        <span><?= Yii::$app->formatter->asDatetime($offer->flight->beginArrivalDate) ?></span>
-                                                    </div>
+                                                    <?= $this->render('duration', ['offer' => $offer]) ?>
                                                 </div>
                                                 <label class="layover">
                                                     <?= Yii::t('app', 'Duration : {days}d', [

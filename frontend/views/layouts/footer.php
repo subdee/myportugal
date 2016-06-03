@@ -108,13 +108,6 @@ use yii\bootstrap\Html;
     </div>
     <div class="bottom gray-area">
         <div class="container">
-            <div class="logo pull-left">
-                <a href="index.html" title="MyPortugal.nl - home">
-                    <?= Html::img('@web/images/logo.png', [
-                        'alt' => 'MyPortugal.nl',
-                    ]) ?>
-                </a>
-            </div>
             <div class="pull-right">
                 <a id="back-to-top" href="#">
                     <?= Icon::show('arrow-up') ?> Back to top

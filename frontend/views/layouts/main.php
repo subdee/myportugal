@@ -37,13 +37,15 @@ Icon::map($this);
                 <h2 class="entry-title"><?= Html::encode($this->title) ?></h2>
             </div>
             <ul class="breadcrumbs pull-right">
-                <li><a href="#">MYPORTUGAL.NL</a></li>
+                <li><a href="#">Feriados</a></li>
                 <li class="active"><?= Html::encode($this->title) ?></li>
             </ul>
         </div>
     </div>
     <section id="content">
-        <?= $content ?>
+        <div class="container">
+            <?= $content ?>
+        </div>
     </section>
     <?php $this->beginContent('@app/views/layouts/footer.php') ?>
     <?php $this->endContent() ?>
