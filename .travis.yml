@@ -21,23 +21,21 @@ install:
   - travis_retry composer global require "fxp/composer-asset-plugin:~1.1.1"
   - export PATH="$TRAVIS_BUILD_DIR/vendor/bin:$PATH"
   - travis_retry composer install --dev --prefer-dist --no-interaction
-  - |
-    ./init --env=Development
-    sed -i s/root/travis/ common/config/main-local.php
-    cd tests/codeception/common && codecept build
-    cd ../console && codecept build
-    cd ../frontend && codecept build
-    cd ../../../
+  - ./init --env=Development
+  - sed -i s/root/travis/ common/config/main-local.php
+  - cd tests/codeception/common && codecept build
+  - cd ../console && codecept build
+  - cd ../frontend && codecept build
+  - cd ../../../
 
 before_script:
   - mysql -e 'CREATE DATABASE feriados_test;';
   - cd tests/codeception/bin && php yii migrate --interactive=0 && cd ../../..
 
 script:
-  - |
-    php -S localhost:8080 > /dev/null 2>&1 &
-    cd tests
-    codecept run
+  - php -S localhost:8080 > /dev/null 2>&1 &
+  - cd tests
+  - codecept run
 
 after_success:
   - eval "$(ssh-agent -s)"
