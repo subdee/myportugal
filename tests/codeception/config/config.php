@@ -14,10 +14,10 @@ return [
     ],
     'components' => [
         'db' => [
-            'dsn' => 'mysql:host=' . getenv('DB_HOST') . ';dbname=feriados_test'
+            'dsn' => 'mysql:host=localhost;dbname=feriados_test'
         ],
         'mongodb' => [
-            'dsn' => 'mongodb://' . getenv('MONGO_HOST') . ':27017/feriados-test',
+            'dsn' => 'mongodb://localhost:27017/feriados_test',
         ],
         'mailer' => [
             'useFileTransport' => true,
