@@ -11,13 +11,5 @@ settings:
     colors: true
     memory_limit: 1024M
     log: true
-extensions:
-    enabled:
-        - Codeception\Extension\RunFailed
-        - Codeception\Extension\Phantoman
-    config:
-        Codeception\Extension\Phantoman:
-            path: '../../../vendor/bin/phantomjs'
-            port: 4444
 config:
     test_entry_url: http://localhost:8080/frontend/web/index-test.php
