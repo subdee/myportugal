@@ -39,7 +39,6 @@
   },
   "scripts": {
     "post-install-cmd": [
-      "php init --env=Development --overwrite=n",
       "PhantomInstaller\\Installer::installPhantomJS"
     ],
     "post-update-cmd": [
