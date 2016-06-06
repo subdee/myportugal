@@ -2,8 +2,8 @@
 
 namespace tests\codeception\frontend\acceptance;
 
-use tests\codeception\frontend\_pages\SignupPage;
 use common\models\User;
+use tests\codeception\frontend\_pages\SignupPage;
 
 class SignupCest
 {
@@ -45,12 +45,12 @@ class SignupCest
         $I->wantTo('ensure that signup works');
 
         $signupPage = SignupPage::openBy($I);
-        $I->see('Signup', 'h1');
-        $I->see('Please fill out the following fields to signup:');
+        $I->see('Signup form', 'h3');
 
         $I->amGoingTo('submit signup form with no data');
 
         $signupPage->submit([]);
+        $I->waitForElementVisible('.help-block');
 
         $I->expectTo('see validation errors');
         $I->see('Username cannot be blank.', '.help-block');
@@ -75,8 +75,9 @@ class SignupCest
             'email' => 'tester.email@example.com',
             'password' => 'tester_password',
         ]);
+        $I->waitForElementVisible('.action-button-red');
 
         $I->expectTo('see that user logged in');
-        $I->see('Logout (tester)', 'form button[type=submit]');
+        $I->see('Give yourself a break and escape', '.action-button-red');
     }
 }

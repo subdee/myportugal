@@ -2,17 +2,18 @@
 
 namespace tests\codeception\frontend\_pages;
 
-use yii\codeception\BasePage;
 use frontend\models\SignupForm;
+use tests\codeception\frontend\AcceptanceTester;
+use yii\codeception\BasePage;
 
 /**
  * Represents signup page
- * @property \codeception_frontend\AcceptanceTester|\codeception_frontend\FunctionalTester $actor
+ * @property AcceptanceTester $actor
  */
 class SignupPage extends BasePage
 {
 
-    public $route = 'site/signup';
+    public $route = 'user/signup';
 
     /**
      * @param array $signupData

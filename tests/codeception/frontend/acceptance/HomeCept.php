@@ -2,15 +2,13 @@
 
 namespace tests\codeception\frontend\acceptance;
 
-use Yii;
 use tests\codeception\frontend\AcceptanceTester;
+use Yii;
 
 /* @var $scenario \Codeception\Scenario */
 
 $I = new AcceptanceTester($scenario);
 $I->wantTo('ensure that home page works');
 $I->amOnPage(Yii::$app->homeUrl);
-$I->see('My Company');
-$I->seeLink('About');
-$I->click('About');
-$I->see('This is the About page.');
+$I->see('YOU DON\'T WANT TO MISS THE NATURE!');
+$I->seeLink('Get a tailor made quote now');

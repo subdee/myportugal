@@ -2,10 +2,12 @@
 
 namespace tests\codeception\frontend\acceptance;
 
-use tests\codeception\frontend\AcceptanceTester;
 use tests\codeception\common\_pages\LoginPage;
+use tests\codeception\frontend\AcceptanceTester;
 
 /* @var $scenario \Codeception\Scenario */
+
+$scenario->skip('Page not implemented yet');
 
 $I = new AcceptanceTester($scenario);
 $I->wantTo('ensure login page works');

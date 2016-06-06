@@ -5,13 +5,13 @@
   "license": "BSD-3-Clause",
   "minimum-stability": "dev",
   "require": {
-    "php": ">=5.4.0",
+    "php": ">=5.6.0",
     "yiisoft/yii2": ">=2.0.6",
     "yiisoft/yii2-bootstrap": "*",
     "yiisoft/yii2-swiftmailer": "*",
     "Sammaye/yii2-mongodb": "dev-master",
-    "yii2tech/embedded": "*",
-    "kartik-v/yii2-icons": "*",
+    "yii2tech/embedded": "^1.0.0",
+    "kartik-v/yii2-icons": "^1.4.1",
     "kartik-v/yii2-widgets": "^3.4",
     "kartik-v/yii2-grid": "^3.1",
     "kartik-v/yii2-money": "^1.2",
@@ -21,7 +21,12 @@
     "yiisoft/yii2-codeception": "*",
     "yiisoft/yii2-debug": "*",
     "yiisoft/yii2-gii": "*",
-    "yiisoft/yii2-faker": "*"
+    "yiisoft/yii2-faker": "*",
+    "codeception/codeception": "^2.2.1",
+    "codeception/specify": "^0.4.3",
+    "codeception/verify": "^0.3.0",
+    "jakoch/phantomjs-installer": "2.1.*",
+    "site5/phantoman": "v1.1.*"
   },
   "config": {
     "process-timeout": 1800
@@ -33,6 +38,12 @@
     }
   },
   "scripts": {
-    "post-install-cmd": "php init --env=Development --overwrite=n"
+    "post-install-cmd": [
+      "php init --env=Development --overwrite=n",
+      "PhantomInstaller\\Installer::installPhantomJS"
+    ],
+    "post-update-cmd": [
+      "PhantomInstaller\\Installer::installPhantomJS"
+    ]
   }
 }

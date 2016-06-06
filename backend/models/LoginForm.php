@@ -13,9 +13,6 @@ class LoginForm extends \common\models\LoginForm
     public $password;
     public $rememberMe = true;
 
-    private $_user;
-
-
     /**
      * @inheritdoc
      */

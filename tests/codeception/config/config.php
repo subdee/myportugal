@@ -14,7 +14,10 @@ return [
     ],
     'components' => [
         'db' => [
-            'dsn' => 'mysql:host=localhost;dbname=yii2_advanced_tests',
+            'dsn' => 'mysql:host=' . getenv('DB_HOST') . ';dbname=feriados_test'
+        ],
+        'mongodb' => [
+            'dsn' => 'mongodb://' . getenv('MONGO_HOST') . ':27017/feriados-test',
         ],
         'mailer' => [
             'useFileTransport' => true,
