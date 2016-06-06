@@ -25,6 +25,7 @@ install:
   - sed -i s/root/travis/ common/config/main-local.php
   - cd tests/codeception/common && codecept build
   - cd ../console && codecept build
+  - cd ../backend && codecept build
   - cd ../frontend && codecept build
   - cd ../../../
 
