@@ -8,6 +8,9 @@ sudo: false
 services:
   - mongodb
 
+addons:
+  artifacts: true
+
 cache:
   directories:
     - $HOME/.composer/cache
