@@ -12,11 +12,14 @@ cache:
   directories:
     - $HOME/.composer/cache
 
+beofre_install:
+  - openssl aes-256-cbc -K $encrypted_3e5819d1149d_key -iv $encrypted_3e5819d1149d_iv -in travis.pem.enc -out travis.pem -d
+
 install:
   - echo "extension = mongodb.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - travis_retry composer self-update && composer --version
   - travis_retry composer global require "fxp/composer-asset-plugin:~1.1.1"
-  - export PATH="vendor/bin:$PATH"
+  - export PATH="$TRAVIS_BUILD_DIR/vendor/bin:$PATH"
   - travis_retry composer install --dev --prefer-dist --no-interaction
   - |
     ./init --env=Development
@@ -35,3 +38,10 @@ script:
     php -S localhost:8080 > /dev/null 2>&1 &
     cd tests
     codecept run
+
+after_success:
+  - eval "$(ssh-agent -s)"
+  - chmod 600 travis.pem
+  - ssh-add travis.pem
+  - git remote add deploy https://github.com/subdee/myportugal.git
+  - git push deploy
