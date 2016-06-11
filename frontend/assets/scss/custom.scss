@@ -183,3 +183,11 @@ article.box {
 input.input-text, select, textarea, span.custom-select {
   background-color: #dadada;
 }
+
+.checkbox, .radio {
+  &.checked:before {
+    content: "\f00c";
+    border-color: $green;
+    background: $green;
+  }
+}

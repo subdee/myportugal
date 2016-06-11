@@ -42,8 +42,8 @@ Icon::map($this);
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
     } else {
         $menuItems[] = [
-            'label' => Icon::show('shopping-cart') . ' Orders',
-            'url' => ['orders/index'],
+            'label' => Icon::show('shopping-cart') . ' Bookings',
+            'url' => ['bookings/index'],
             'encode' => false
         ];
         $menuItems[] = [

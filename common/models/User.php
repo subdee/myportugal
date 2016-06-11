@@ -21,6 +21,7 @@ use yii\web\IdentityInterface;
  * @property integer $created_at
  * @property integer $updated_at
  * @property string $password write-only password
+ * @property integer $newsletter
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -56,6 +57,7 @@ class User extends ActiveRecord implements IdentityInterface
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
             ['admin', 'default', 'value' => 0],
             ['admin', 'in', 'range' => [0, 1]],
+            ['newsletter', 'safe']
         ];
     }
 

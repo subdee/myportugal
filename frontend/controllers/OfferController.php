@@ -2,6 +2,7 @@
 namespace frontend\controllers;
 
 use common\models\Offer;
+use frontend\models\BookingForm;
 use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -25,6 +26,13 @@ class OfferController extends Controller
             throw new NotFoundHttpException(Yii::t('app', 'This offer does not exist'));
         }
 
-        return $this->render('book', ['offer' => $offer]);
+        $model = new BookingForm();
+        $model->newsletter = true;
+
+        if ($model->load(Yii::$app->request->post()) && $model->save($offer)) {
+            $this->redirect(['site/index']);
+        }
+
+        return $this->render('book', ['offer' => $offer, 'model' => $model]);
     }
 }

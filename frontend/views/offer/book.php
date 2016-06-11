@@ -12,108 +12,86 @@ $this->title = Yii::t('app', 'Book {offer}', ['offer' => $offer->title]);
         <div class="booking-section travelo-box">
             <?php $form = ActiveForm::begin(['class' => 'booking-form']); ?>
             <div class="person-information">
+                <h2><?= Yii::t('app', 'Booking options') ?></h2>
+                <div class="form-group row">
+                    <div class="col-sm-6 col-md-5">
+                        <?= $form->field($model, 'adults')->dropDownList(
+                            [1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5]
+                        ) ?>
+                    </div>
+                    <div class="col-sm-6 col-md-5">
+                        <?= $form->field($model, 'children')->dropDownList(
+                            [1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5]
+                        ) ?>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-12 col-md-10">
+                        <?= $form->field($model, 'remarks')->textarea() ?>
+                    </div>
+                </div>
+            </div>
+            <div class="person-information">
                 <h2><?= Yii::t('app', 'Your Personal Information') ?></h2>
                 <div class="form-group row">
                     <div class="col-sm-6 col-md-5">
-                        <label>first name</label>
-                        <input type="text" class="input-text full-width" value="" placeholder=""/>
+                        <?= $form->field($model, 'firstName') ?>
                     </div>
                     <div class="col-sm-6 col-md-5">
-                        <label>last name</label>
-                        <input type="text" class="input-text full-width" value="" placeholder=""/>
+                        <?= $form->field($model, 'lastName') ?>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-6 col-md-5">
-                        <label>email address</label>
-                        <input type="text" class="input-text full-width" value="" placeholder=""/>
+                        <?= $form->field($model, 'phone') ?>
                     </div>
                     <div class="col-sm-6 col-md-5">
-                        <label>Verify E-mail Address</label>
-                        <input type="text" class="input-text full-width" value="" placeholder=""/>
+                        <?= $form->field($model, 'mobile') ?>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-6 col-md-5">
-                        <label>Country code</label>
-                        <div class="selector">
-                            <select class="full-width">
-                                <option>Netherlands (+31)</option>
-                                <option>United States (+1)</option>
-                            </select>
-                        </div>
+                        <?= $form->field($model, 'email') ?>
                     </div>
                     <div class="col-sm-6 col-md-5">
-                        <label>Phone number</label>
-                        <input type="text" class="input-text full-width" value="" placeholder=""/>
+                        <?= $form->field($model, 'email2') ?>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6 col-md-5">
+                        <?= $form->field($model, 'password')->passwordInput() ?>
+                    </div>
+                    <div class="col-sm-6 col-md-5">
+                        <?= $form->field($model, 'password2')->passwordInput() ?>
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox"> I want to receive <span class="skin-color">MyPortugal.nl</span>
-                            promotional offers in the future
-                        </label>
-                    </div>
+                    <?= $form->field($model, 'newsletter')->checkbox() ?>
                 </div>
             </div>
             <hr/>
             <div class="card-information">
-                <h2>Your Card Information</h2>
+                <h2><?= Yii::t('app', 'Payment information') ?></h2>
                 <div class="form-group row">
                     <div class="col-sm-6 col-md-5">
-                        <label>Credit Card Type</label>
-                        <div class="selector">
-                            <select class="full-width">
-                                <option>select a card</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-5">
-                        <label>Card holder name</label>
-                        <input type="text" class="input-text full-width" value="" placeholder=""/>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-sm-6 col-md-5">
-                        <label>Card number</label>
-                        <input type="text" class="input-text full-width" value="" placeholder=""/>
-                    </div>
-                    <div class="col-sm-6 col-md-5">
-                        <label>Card identification number</label>
-                        <input type="text" class="input-text full-width" value="" placeholder=""/>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-sm-6 col-md-5">
-                        <label>Expiration Date</label>
-                        <div class="constant-column-2">
-                            <div class="selector">
-                                <select class="full-width">
-                                    <option>month</option>
-                                </select>
-                            </div>
-                            <div class="selector">
-                                <select class="full-width">
-                                    <option>year</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-3 col-md-2">
-                        <label>billing zip code</label>
-                        <input type="text" class="input-text full-width" value="" placeholder=""/>
+                        Select payment method
                     </div>
                 </div>
             </div>
             <hr/>
             <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox"> By continuing, you agree to the <a href="#"><span
-                                class="skin-color">Terms and Conditions</span></a>.
-                    </label>
-                </div>
+                <?= $form->field($model, 'termsAndConditions')->checkbox([
+                    'label' => Yii::t('app/forms', 'By continuing, you agree to the {termsAndCondsLink}', [
+                        'termsAndCondsLink' => Html::a(
+                            Html::tag(
+                                'span',
+                                Yii::t('app/forms', 'Terms and Conditions'),
+                                ['class' => 'skin-color']
+                            ),
+                            Url::to(['site/terms'])
+                        )
+                    ])
+                ]) ?>
             </div>
             <div class="form-group row">
                 <div class="col-sm-6 col-md-5">

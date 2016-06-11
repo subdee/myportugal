@@ -109,3 +109,19 @@ a.desc:after {
 .nav > li > form > button:hover {
     text-decoration: none;
 }
+
+.label-1 {
+    background-color: #337ab7;
+}
+
+.label-2 {
+    background-color: #5cb85c;
+}
+
+.label-8 {
+    background-color: #f0ad4e;
+}
+
+.label-9 {
+    background-color: #d9534f;
+}

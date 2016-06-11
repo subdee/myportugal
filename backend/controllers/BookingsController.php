@@ -1,12 +1,12 @@
 <?php
 namespace backend\controllers;
 
-use common\models\Order;
+use common\models\Booking;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 
-class OrdersController extends Controller
+class BookingsController extends Controller
 {
     /**
      * @inheritdoc
@@ -31,7 +31,7 @@ class OrdersController extends Controller
 
     public function actionIndex()
     {
-        $dataProvider = Order::getOpen();
+        $dataProvider = Booking::getAll();
 
         return $this->render('index', ['dataProvider' => $dataProvider]);
     }
