@@ -47,14 +47,14 @@ class BookingForm extends Model
             ],
             ['email', 'trim'],
             ['email', 'email'],
-            ['email', 'compare', 'compareAttribute' => 'email2'],
+            ['email2', 'compare', 'compareAttribute' => 'email'],
             [
                 'email',
                 'unique',
                 'targetClass' => '\common\models\User',
                 'message' => Yii::t('app', 'This email address has already been taken.')
             ],
-            ['password', 'compare', 'compareAttribute' => 'password2'],
+            ['password2', 'compare', 'compareAttribute' => 'password'],
             [
                 'termsAndConditions',
                 'compare',
