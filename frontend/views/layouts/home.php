@@ -30,7 +30,7 @@ Icon::map($this);
 
 <div id="page-wrapper">
     <?php $this->beginContent('@app/views/layouts/header.php') ?>
-    <section id="content-home">
+    <section id="content">
         <?= $content ?>
     </section>
     <?php $this->endContent() ?>
