@@ -8,7 +8,12 @@ machine:
 dependencies:
   cache_directories:
     - "~/.composer/cache"
+  pre:
+    - pecl install mongo
   override:
+    - composer self-update && composer --version
+    - composer global require "fxp/composer-asset-plugin:~1.1.1"
+    - composer install --dev --prefer-dist --no-interaction
     - ./init --env=Development
     - sed -i s/root/travis/ common/config/main-local.php
     - cd tests/codeception/common && codecept build
