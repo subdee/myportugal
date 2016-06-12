@@ -39,6 +39,7 @@ script:
   - codecept run
 
 after_failure:
+  - cd ../
   - cat phpserver.log
   - cat tests/codeception/backend/_output/*
   - cat tests/codeception/frontend/_output/*
