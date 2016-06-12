@@ -1,0 +1,26 @@
+machine:
+  php:
+    version: 7.0.4
+  services:
+    - mongodb
+  dependencies:
+    cache_directories:
+      - "~/.composer/cache"
+    override:
+      - export PATH="vendor/bin:$PATH"
+      - ./init --env=Development
+      - sed -i s/root/travis/ common/config/main-local.php
+      - cd tests/codeception/common && codecept build
+      - cd ../console && codecept build
+      - cd ../backend && codecept build
+      - cd ../frontend && codecept build
+      - cd ../../../
+  database:
+    override:
+      - mysql -e 'CREATE DATABASE feriados_test;'
+      - cd tests/codeception/bin && php yii migrate --interactive=0 && cd ../../..
+  test:
+    override:
+      - php -S localhost:8080 > phpserver.log 2>&1 &
+      - cd tests
+      - codecept run

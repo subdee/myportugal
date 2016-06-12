@@ -12,7 +12,7 @@ cache:
   directories:
     - $HOME/.composer/cache
 
-beofre_install:
+before_install:
   - openssl aes-256-cbc -K $encrypted_3e5819d1149d_key -iv $encrypted_3e5819d1149d_iv -in travis.pem.enc -out travis.pem -d
 
 install:

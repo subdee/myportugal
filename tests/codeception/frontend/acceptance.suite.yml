@@ -11,8 +11,11 @@
 class_name: AcceptanceTester
 modules:
     enabled:
-        - PhpBrowser
+        - WebDriver
         - tests\codeception\common\_support\FixtureHelper
     config:
-        PhpBrowser:
+        WebDriver:
             url: http://localhost:8080
+            browser: phantomjs
+            restart: true
+            window_size: 1366x768
