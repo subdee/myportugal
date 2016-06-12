@@ -3,11 +3,12 @@ machine:
     version: 7.0.4
   services:
     - mongodb
+  environment:
+    PATH: ${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/vendor/bin
 dependencies:
   cache_directories:
     - "~/.composer/cache"
   override:
-    - export PATH="vendor/bin:$PATH"
     - ./init --env=Development
     - sed -i s/root/travis/ common/config/main-local.php
     - cd tests/codeception/common && codecept build
