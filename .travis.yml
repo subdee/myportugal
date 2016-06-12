@@ -34,9 +34,14 @@ before_script:
   - cd tests/codeception/bin && php yii migrate --interactive=0 && cd ../../..
 
 script:
-  - php -S localhost:8080 > /dev/null 2>&1 &
+  - php -S localhost:8080 > phpserver.log 2>&1 &
   - cd tests
   - codecept run
+
+after_failure:
+  - cat phpserver.log
+  - cat tests/codeception/backend/_output/*
+  - cat tests/codeception/frontend/_output/*
 
 after_success:
   - eval "$(ssh-agent -s)"
