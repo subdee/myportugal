@@ -9,7 +9,7 @@ dependencies:
   cache_directories:
     - "~/.composer/cache"
   pre:
-    - pecl install mongo
+    - pecl install mongodb
   override:
     - composer self-update && composer --version
     - composer global require "fxp/composer-asset-plugin:~1.1.1"
