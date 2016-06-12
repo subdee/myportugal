@@ -35,11 +35,12 @@ before_script:
 
 script:
   - php -S localhost:8080 > phpserver.log 2>&1 &
-  - cd tests/codeception/frontend
+  - cd tests
   - codecept run
 
 after_failure:
   - cd ../
+  - pwd
   - cat phpserver.log
   - cat tests/codeception/backend/_output/*.html
   - cat tests/codeception/common/_output/*.html
