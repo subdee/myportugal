@@ -14,10 +14,10 @@ return [
     ],
     'components' => [
         'db' => [
-            'dsn' => 'mysql:host=localhost;dbname=feriados_test'
+            'dsn' => 'mysql:host=127.0.0.1;dbname=feriados_test'
         ],
         'mongodb' => [
-            'dsn' => 'mongodb://localhost:27017/feriados_test',
+            'dsn' => 'mongodb://127.0.0.1:27017/feriados_test',
         ],
         'mailer' => [
             'useFileTransport' => true,

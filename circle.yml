@@ -13,7 +13,7 @@ dependencies:
     - composer global require "fxp/composer-asset-plugin:~1.1.1"
     - composer install --dev --prefer-dist --no-interaction
     - ./init --env=Development
-    - sed -i s/root/ubuntu/ common/config/main-local.php
+    - sed -i s/root/ubuntu/ tests/codeception/config/config-local.php
     - cd tests/codeception/common && codecept build
     - cd tests/codeception/console && codecept build
     - cd tests/codeception/backend && codecept build
