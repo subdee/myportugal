@@ -1,8 +1,6 @@
 machine:
   php:
     version: 7.0.4
-  services:
-    - mongodb
   environment:
     PATH: ${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/vendor/bin
 dependencies:
@@ -15,7 +13,7 @@ dependencies:
     - composer global require "fxp/composer-asset-plugin:~1.1.1"
     - composer install --dev --prefer-dist --no-interaction
     - ./init --env=Development
-    - sed -i s/root/travis/ common/config/main-local.php
+    - sed -i s/root/ubuntu/ common/config/main-local.php
     - cd tests/codeception/common && codecept build
     - cd tests/codeception/console && codecept build
     - cd tests/codeception/backend && codecept build
@@ -23,8 +21,9 @@ dependencies:
 database:
   override:
     - mysql -e 'CREATE DATABASE feriados_test;'
-    - cd tests/codeception/bin && php yii migrate --interactive=0 && cd ../../..
+    - cd tests/codeception/bin && php yii migrate --interactive=0
 test:
   override:
-    - php -S localhost:8080 > phpserver.log 2>&1 &
+    - php -S localhost:8080 > phpserver.log 2>&1
+      background: true
     - cd tests && codecept run
