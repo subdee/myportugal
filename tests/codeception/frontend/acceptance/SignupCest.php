@@ -50,7 +50,6 @@ class SignupCest
         $I->amGoingTo('submit signup form with no data');
 
         $signupPage->submit([]);
-        $I->waitForElementVisible('.help-block');
 
         $I->expectTo('see validation errors');
         $I->see('Username cannot be blank.', '.help-block');
@@ -75,7 +74,6 @@ class SignupCest
             'email' => 'tester.email@example.com',
             'password' => 'tester_password',
         ]);
-        $I->waitForElementVisible('.action-button-red');
 
         $I->expectTo('see that user logged in');
         $I->see('Give yourself a break and escape', '.action-button-red');
