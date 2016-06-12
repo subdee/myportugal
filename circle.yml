@@ -27,5 +27,4 @@ database:
 test:
   override:
     - php -S localhost:8080 > phpserver.log 2>&1 &
-    - cd tests
-    - codecept run
+    - cd tests && codecept run
