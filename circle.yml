@@ -24,6 +24,6 @@ database:
     - cd tests/codeception/bin && php yii migrate --interactive=0
 test:
   override:
-    - php -S localhost:8080 > phpserver.log 2>&1
-      background: true
+    - php -S localhost:8080 > phpserver.log 2>&1:
+        background: true
     - cd tests && codecept run
