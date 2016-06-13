@@ -17,15 +17,22 @@ before_install:
   - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
-  - docker version
-  - docker-compose version
   - git clone https://github.com/subdee/yii2-nginx-php7-mongo-mariadb-docker.git docker
+  - gem install sass
+  - gem install compass
+
+install:
   - cd docker
   - sed -i s/\\/project// common-compose.yml
   - docker-compose pull
   - docker-compose build
   - docker-compose up -d
   - docker exec php7 /bin/bash -c 'composer install --prefer-dist --no-interaction'
+  - sass frontend/assets/scss/app.scss frontend/web/css/app.css --style compressed
+  - sass frontend/assets/scss/theme.scss frontend/web/css/theme.css --style compressed
+  - sass frontend/assets/scss/ie.scss frontend/web/css/ie.css --style compressed
+
+before_script:
   - docker exec php7 /bin/bash -c './init --env=Development'
   - docker exec php7 /bin/bash -c 'cd tests/codeception/common && ../../../vendor/bin/codecept build'
   - docker exec php7 /bin/bash -c 'cd tests/codeception/console && ../../../vendor/bin/codecept build'
@@ -37,6 +44,12 @@ script:
   - docker exec php7 /bin/bash -c 'cd tests && ../vendor/bin/codecept run'
 
 after_success:
+  - docker exec php7 /bin/bash -c 'composer install --no-dev --prefer-dist --no-interaction'
+  - docker exec php7 /bin/bash -c './init --env=Production'
+  - git config user.name "Travis CI"
+  - git config user.email "$COMMIT_AUTHOR_EMAIL"
+  - git add .
+  - git commit -m "[ci skip] Deployment push"
   - eval "$(ssh-agent -s)"
   - chmod 600 travis.pem
   - ssh-add travis.pem
