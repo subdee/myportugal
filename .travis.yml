@@ -1,57 +1,23 @@
-language: php
+sudo: required
 
-php:
-  - 7.0
-
-sudo: false
+language: ruby
 
 services:
-  - mongodb
-
-cache:
-  directories:
-    - $HOME/.composer/cache
+  - docker
 
 before_install:
-  - openssl aes-256-cbc -K $encrypted_3e5819d1149d_key -iv $encrypted_3e5819d1149d_iv -in travis.pem.enc -out travis.pem -d
-
-install:
-  - echo "extension = mongodb.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-  - travis_retry composer self-update && composer --version
-  - travis_retry composer global require "fxp/composer-asset-plugin:~1.1.1"
-  - export PATH="$TRAVIS_BUILD_DIR/vendor/bin:$PATH"
-  - travis_retry composer install --dev --prefer-dist --no-interaction
-  - |
-    ./init --env=Development
-    sed -i s/root/travis/ common/config/main-local.php
-    cd tests/codeception/common && codecept build
-    cd ../console && codecept build
-    cd ../backend && codecept build
-    cd ../frontend && codecept build
-    cd ../../../
-
-before_script:
-  - mysql -e 'CREATE DATABASE feriados_test;';
-  - cd tests/codeception/bin && php yii migrate --interactive=0 && cd ../../..
+  - git clone https://github.com/subdee/yii2-nginx-php7-mongo-mariadb-docker.git docker
+  - cd docker
+  - docker-compose pull
+  - docker-compose build
+  - docker-compose up -d
+  - docker exec php7 /bin/bash -c 'composer install --dev --prefer-dist --no-interaction'
+  - docker exec php7 /bin/bash -c './init --env=Development'
+  - docker exec php7 /bin/bash -c 'cd tests/codeception/common && ../../../vendor/bin/codecept build'
+  - docker exec php7 /bin/bash -c 'cd tests/codeception/console && ../../../vendor/bin/codecept build'
+  - docker exec php7 /bin/bash -c 'cd tests/codeception/backend && ../../../vendor/bin/codecept build'
+  - docker exec php7 /bin/bash -c 'cd tests/codeception/frontend && ../../../vendor/bin/codecept build'
+  - docker exec php7 /bin/bash -c 'cd tests/codeception/bin && ./yii migrate --interactive=0'
 
 script:
-  - |
-    php -S localhost:8080 > phpserver.log 2>&1 &
-    cd tests
-    codecept run
-
-after_failure:
-  - cd ../
-  - pwd
-  - cat phpserver.log
-  - cat tests/codeception/backend/_output/*.html
-  - cat tests/codeception/common/_output/*.html
-  - cat tests/codeception/console/_output/*.html
-  - cat tests/codeception/frontend/_output/*.html
-
-after_success:
-  - eval "$(ssh-agent -s)"
-  - chmod 600 travis.pem
-  - ssh-add travis.pem
-  - git remote add deploy https://github.com/subdee/myportugal.git
-  - git push deploy
+  - docker exec php7 /bin/bash -c 'cd tests && ../vendor/bin/codecept run'
