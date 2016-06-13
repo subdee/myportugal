@@ -45,9 +45,7 @@ script:
 
 after_success:
   - git checkout -b deploy
-  - docker exec php7 /bin/bash -c 'composer install --no-dev --prefer-dist --no-interaction'
-  - docker exec php7 /bin/bash -c './init --env=Production --overwrite=y'
-  - docker exec php7 /bin/bash -c 'rm -rf tests docker environments'
+  - docker exec php7 /bin/bash -c 'rm -rf tests docker environments .sass-cache'
   - git config user.name "Travis CI"
   - git config user.email "$COMMIT_AUTHOR_EMAIL"
   - git add .
