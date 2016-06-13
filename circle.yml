@@ -5,18 +5,20 @@ checkout:
   post:
     - git clone https://github.com/subdee/yii2-nginx-php7-mongo-mariadb-docker.git docker
 dependencies:
-  override:
-    - sudo pip install --upgrade docker-compose==1.7.1
-test:
   pre:
+    - sudo pip install docker-compose
+  override:
     - cd docker && docker-composer pull
     - cd docker && docker-compose build
     - cd docker && docker-compose up -d
     - cd docker && docker exec php7 /bin/bash -c 'composer install --dev --prefer-dist --no-interaction'
     - cd docker && docker exec php7 /bin/bash -c './init --env=Development'
+test:
+  pre:
     - cd docker && docker exec php7 /bin/bash -c 'cd tests/codeception/common && ../../../vendor/bin/codecept build'
     - cd docker && docker exec php7 /bin/bash -c 'cd tests/codeception/console && ../../../vendor/bin/codecept build'
     - cd docker && docker exec php7 /bin/bash -c 'cd tests/codeception/backend && ../../../vendor/bin/codecept build'
     - cd docker && docker exec php7 /bin/bash -c 'cd tests/codeception/frontend && ../../../vendor/bin/codecept build'
     - cd docker && docker exec php7 /bin/bash -c 'cd tests/codeception/bin && ./yii migrate --interactive=0'
+  override:
     - cd docker && docker exec php7 /bin/bash -c 'cd tests && ../vendor/bin/codecept run'
