@@ -44,6 +44,7 @@ script:
   - docker exec php7 /bin/bash -c 'cd tests && ../vendor/bin/codecept run'
 
 after_success:
+  - git checkout deploy
   - docker exec php7 /bin/bash -c 'composer install --no-dev --prefer-dist --no-interaction'
   - docker exec php7 /bin/bash -c './init --env=Production --overwrite=y'
   - docker exec php7 /bin/bash -c 'rm -rf tests docker environments'
