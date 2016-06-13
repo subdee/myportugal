@@ -28,6 +28,7 @@ install:
   - docker-compose build
   - docker-compose up -d
   - docker exec php7 /bin/bash -c 'composer install --prefer-dist --no-interaction'
+  - cd ../
   - sass frontend/assets/scss/app.scss frontend/web/css/app.css --style compressed
   - sass frontend/assets/scss/theme.scss frontend/web/css/theme.css --style compressed
   - sass frontend/assets/scss/ie.scss frontend/web/css/ie.css --style compressed
