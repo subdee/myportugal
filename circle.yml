@@ -1,29 +1,22 @@
 machine:
-  php:
-    version: 7.0.4
-  environment:
-    PATH: ${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/vendor/bin
+  services:
+    - docker
+checkout:
+  post:
+    - git clone https://github.com/subdee/yii2-nginx-php7-mongo-mariadb-docker.git docker
 dependencies:
-  cache_directories:
-    - "~/.composer/cache"
-  pre:
-    - pecl install mongodb
-    - echo "extension = mongodb.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   override:
-    - composer global require "fxp/composer-asset-plugin:~1.1.1"
-    - composer install --dev --prefer-dist --no-interaction
-    - ./init --env=Development
-    - sed -i s/root/ubuntu/ tests/codeception/config/config-local.php
-    - cd tests/codeception/common && codecept build
-    - cd tests/codeception/console && codecept build
-    - cd tests/codeception/backend && codecept build
-    - cd tests/codeception/frontend && codecept build
-database:
-  override:
-    - mysql -e 'CREATE DATABASE feriados_test;'
-    - cd tests/codeception/bin && php yii migrate --interactive=0
+    - sudo pip install --upgrade docker-compose==1.7.1
 test:
-  override:
-    - php -S localhost:8080 > phpserver.log 2>&1:
-        background: true
-    - cd tests && codecept run
+  pre:
+    - cd docker && docker-composer pull
+    - cd docker && docker-compose build
+    - cd docker && docker-compose up -d
+    - cd docker && docker exec php7 /bin/bash -c 'composer install --dev --prefer-dist --no-interaction'
+    - cd docker && docker exec php7 /bin/bash -c './init --env=Development'
+    - cd docker && docker exec php7 /bin/bash -c 'cd tests/codeception/common && ../../../vendor/bin/codecept build'
+    - cd docker && docker exec php7 /bin/bash -c 'cd tests/codeception/console && ../../../vendor/bin/codecept build'
+    - cd docker && docker exec php7 /bin/bash -c 'cd tests/codeception/backend && ../../../vendor/bin/codecept build'
+    - cd docker && docker exec php7 /bin/bash -c 'cd tests/codeception/frontend && ../../../vendor/bin/codecept build'
+    - cd docker && docker exec php7 /bin/bash -c 'cd tests/codeception/bin && ./yii migrate --interactive=0'
+    - cd docker && docker exec php7 /bin/bash -c 'cd tests && ../vendor/bin/codecept run'

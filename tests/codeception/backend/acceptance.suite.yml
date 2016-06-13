@@ -15,7 +15,8 @@ modules:
         - tests\codeception\common\_support\FixtureHelper
     config:
         WebDriver:
-            url: http://localhost:8080
+            url: http://admin.subdee.test
             browser: phantomjs
+            host: phantomjs
             restart: true
             window_size: 1366x768

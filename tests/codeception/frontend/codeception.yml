@@ -12,4 +12,4 @@ settings:
     memory_limit: 1024M
     log: true
 config:
-    test_entry_url: http://localhost:8080/frontend/web/index-test.php
+    test_entry_url: http://subdee.test/index-test.php
