@@ -20,6 +20,7 @@ before_install:
   - docker-compose version
   - git clone https://github.com/subdee/yii2-nginx-php7-mongo-mariadb-docker.git docker
   - cd docker
+  - sed -i s/\\/project// common-compose.yml
   - docker-compose pull
   - docker-compose build
   - docker-compose up -d
