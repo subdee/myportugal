@@ -53,5 +53,5 @@ after_success:
   - eval "$(ssh-agent -s)"
   - chmod 600 travis.pem
   - ssh-add travis.pem
-  - git remote add deploy https://github.com/subdee/myportugal.git
-  - git push deploy
+  - git remote add deploy git@github.com:subdee/myportugal.git
+  - git push --force deploy
