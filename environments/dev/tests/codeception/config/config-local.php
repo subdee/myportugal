@@ -3,7 +3,7 @@ return [
     'components' => [
         'db' => [
             'username' => 'root',
-            'password' => '',
+            'password' => 'dev',
             'charset' => 'utf8',
         ],
     ],
