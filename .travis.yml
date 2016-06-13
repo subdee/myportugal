@@ -34,3 +34,10 @@ before_install:
 
 script:
   - docker exec php7 /bin/bash -c 'cd tests && ../vendor/bin/codecept run'
+
+after_success:
+  - eval "$(ssh-agent -s)"
+  - chmod 600 travis.pem
+  - ssh-add travis.pem
+  - git remote add deploy https://github.com/subdee/myportugal.git
+  - git push deploy
