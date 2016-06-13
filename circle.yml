@@ -8,7 +8,7 @@ dependencies:
   pre:
     - sudo pip install docker-compose
   override:
-    - cd docker && docker-composer pull
+    - cd docker && docker-compose pull
     - cd docker && docker-compose build
     - cd docker && docker-compose up -d
     - cd docker && docker exec php7 /bin/bash -c 'composer install --dev --prefer-dist --no-interaction'
