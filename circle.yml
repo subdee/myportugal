@@ -6,7 +6,9 @@ checkout:
     - git clone https://github.com/subdee/yii2-nginx-php7-mongo-mariadb-docker.git docker
 dependencies:
   pre:
+    - sudo pip install --upgrade docker
     - sudo pip install docker-compose
+    - docker version
   override:
     - cd docker && docker-compose pull
     - cd docker && docker-compose build
