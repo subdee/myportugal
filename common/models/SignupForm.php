@@ -1,7 +1,6 @@
 <?php
-namespace frontend\models;
+namespace common\models;
 
-use common\models\User;
 use yii\base\Model;
 
 /**
@@ -49,9 +48,12 @@ class SignupForm extends Model
     /**
      * Signs user up.
      *
+     * @param bool $admin
+     * @param bool $agent
+     *
      * @return User|null the saved model or null if saving fails
      */
-    public function signup()
+    public function signup($admin = false, $agent = false)
     {
         if ( ! $this->validate()) {
             return null;
@@ -62,6 +64,8 @@ class SignupForm extends Model
         $user->email = $this->email;
         $user->setPassword($this->password);
         $user->generateAuthKey();
+        $user->admin = $admin;
+        $user->agent = $agent;
 
         return $user->save() ? $user : null;
     }

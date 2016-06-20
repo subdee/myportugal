@@ -2,9 +2,11 @@
 
 namespace common\models;
 
+use common\models\queries\OfferQuery;
 use yii\behaviors\SluggableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\data\ActiveDataProvider;
+use yii\web\IdentityInterface;
 use yii2tech\embedded\mongodb\ActiveRecord;
 
 /**
@@ -43,13 +45,14 @@ class Offer extends ActiveRecord
             'active',
             'created_on',
             'updated_on',
+            'createdBy'
         ];
     }
 
     public function rules()
     {
         return [
-            [['title', 'price', 'description', 'origin', 'destination'], 'required'],
+            [['title', 'price', 'description', 'origin', 'destination', 'createdBy'], 'required'],
             [['flightData', 'hotelData', 'photoData'], 'yii2tech\embedded\Validator'],
             ['photoFile', 'image', 'maxSize' => 10 * 1024 * 1024],
             ['active', 'default', 'value' => false],
@@ -87,13 +90,27 @@ class Offer extends ActiveRecord
         ];
     }
 
-    public static function getAll()
+    public static function find()
     {
+        return new OfferQuery(get_called_class());
+    }
+
+    public static function getAll(IdentityInterface $user)
+    {
+        $query = static::find();
+        if ($user->agent) {
+            $query = static::find()->byAgent($user->id);
+        }
         $provider = new ActiveDataProvider([
-            'query' => static::find(),
+            'query' => $query,
             'pagination' => ['pageSize' => 50]
         ]);
 
         return $provider;
+    }
+
+    public function getCreator()
+    {
+        return User::findOne($this->createdBy);
     }
 }

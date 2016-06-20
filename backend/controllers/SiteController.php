@@ -29,7 +29,7 @@ class SiteController extends Controller
                         'allow' => true,
                         'roles' => ['@'],
                         'matchCallback' => function () {
-                            return Yii::$app->user->identity->admin;
+                            return Yii::$app->user->identity->admin || Yii::$app->user->identity->agent;
                         }
                     ],
                 ],

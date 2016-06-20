@@ -4,6 +4,7 @@ namespace common\models;
 use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
+use yii\data\ActiveDataProvider;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
@@ -18,6 +19,7 @@ use yii\web\IdentityInterface;
  * @property string $auth_key
  * @property integer $status
  * @property integer $admin
+ * @property integer $agent
  * @property integer $created_at
  * @property integer $updated_at
  * @property string $password write-only password
@@ -26,7 +28,7 @@ use yii\web\IdentityInterface;
 class User extends ActiveRecord implements IdentityInterface
 {
     const STATUS_DELETED = 0;
-    const STATUS_ACTIVE = 10;
+    const STATUS_ACTIVE = 1;
 
 
     /**
@@ -56,7 +58,9 @@ class User extends ActiveRecord implements IdentityInterface
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
             ['admin', 'default', 'value' => 0],
+            ['agent', 'default', 'value' => 0],
             ['admin', 'in', 'range' => [0, 1]],
+            ['agent', 'in', 'range' => [0, 1]],
             ['newsletter', 'safe']
         ];
     }
@@ -170,7 +174,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function validateRole()
     {
-        return $this->admin === 1;
+        return $this->admin === 1 || $this->agent === 1;
     }
 
     /**
@@ -205,5 +209,15 @@ class User extends ActiveRecord implements IdentityInterface
     public function removePasswordResetToken()
     {
         $this->password_reset_token = null;
+    }
+
+    public static function getAgents()
+    {
+        $provider = new ActiveDataProvider([
+            'query' => static::find()->where(['agent' => true]),
+            'pagination' => ['pageSize' => 50]
+        ]);
+
+        return $provider;
     }
 }

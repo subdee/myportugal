@@ -22,6 +22,14 @@ class OffersController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
+                        'actions' => ['index', 'add', 'update'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback' => function () {
+                            return Yii::$app->user->identity->agent;
+                        }
+                    ],
+                    [
                         'allow' => true,
                         'roles' => ['@'],
                         'matchCallback' => function () {
@@ -35,8 +43,8 @@ class OffersController extends Controller
 
     public function actionIndex()
     {
-        $dataProvider = Offer::getAll();
-
+        $dataProvider = Offer::getAll(Yii::$app->user->identity);
+        
         return $this->render('index', ['dataProvider' => $dataProvider]);
     }
 
@@ -56,6 +64,7 @@ class OffersController extends Controller
                 $image->create($newImage);
                 $offer->photo = $image;
             }
+            $offer->createdBy = Yii::$app->user->id;
             if ($offer->save()) {
                 $this->redirect(['offers/index']);
             }

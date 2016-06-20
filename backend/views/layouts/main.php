@@ -44,14 +44,22 @@ Icon::map($this);
         $menuItems[] = [
             'label' => Icon::show('shopping-cart') . ' Bookings',
             'url' => ['bookings/index'],
-            'encode' => false
+            'encode' => false,
+            'visible' => Yii::$app->user->identity->admin
         ];
         $menuItems[] = [
             'label' => Icon::show('comment-o') . ' Custom requests',
             'url' => ['site/custom'],
-            'encode' => false
+            'encode' => false,
+            'visible' => Yii::$app->user->identity->admin
         ];
         $menuItems[] = ['label' => Icon::show('cogs') . ' Offers', 'url' => ['offers/index'], 'encode' => false];
+        $menuItems[] = [
+            'label' => Icon::show('user-secret') . ' Agents',
+            'url' => ['agents/index'],
+            'encode' => false,
+            'visible' => Yii::$app->user->identity->admin
+        ];
         $menuItems[] = '<li>'
                        . Html::beginForm(['/site/logout'], 'post')
                        . Html::submitButton(
