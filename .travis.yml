@@ -45,6 +45,7 @@ script:
 
 after_success:
   - git checkout -b deploy
+  - docker exec php7 /bin/bash -c './yii message frontend/config/i18n.php'
   - docker exec php7 /bin/bash -c 'rm -rf tests docker environments .sass-cache'
   - git config user.name "Travis CI"
   - git config user.email "$COMMIT_AUTHOR_EMAIL"

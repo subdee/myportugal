@@ -9,7 +9,7 @@ $params = array_merge(
 return [
     'id' => 'app-frontend',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
+    'bootstrap' => ['log', 'languagepicker'],
     'controllerNamespace' => 'frontend\controllers',
     'language' => 'nl-NL',
     'components' => [
@@ -21,6 +21,13 @@ return [
                     'sourceLanguage' => 'en-US',
                 ],
             ],
+        ],
+        'languagepicker' => [
+            'class' => 'lajax\languagepicker\Component',
+            'languages' => ['nl-NL' => 'Nederlands', 'en-US' => 'English'],
+            'cookieName' => 'language',
+            'cookieDomain' => 'subdee.test',
+            'expireDays' => 64,
         ],
         'user' => [
             'identityClass' => 'common\models\User',

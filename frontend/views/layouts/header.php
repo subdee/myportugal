@@ -1,4 +1,5 @@
 <?php
+use lajax\languagepicker\widgets\LanguagePicker;
 use yii\bootstrap\Html;
 use yii\helpers\Url;
 
@@ -26,15 +27,11 @@ use yii\helpers\Url;
                 </nav>
                 <ul class="quick-menu pull-right clearfix">
                     <li class="ribbon">
-                        <a href="#"><?= Locale::getDisplayLanguage(Yii::$app->language, Yii::$app->language) ?></a>
-                        <ul class="menu mini">
-                            <li class="<?= Yii::$app->language === 'nl-NL' ? 'active' : '' ?>">
-                                <a href="#"><?= Locale::getDisplayLanguage('nl-NL', Yii::$app->language) ?></a>
-                            </li>
-                            <li class="<?= Yii::$app->language === 'en-GB' ? 'active' : '' ?>">
-                                <a href="#"><?= Locale::getDisplayLanguage('en-GB', Yii::$app->language) ?></a>
-                            </li>
-                        </ul>
+                        <?= LanguagePicker::widget([
+                            'skin' => \lajax\languagepicker\widgets\LanguagePicker::SKIN_DROPDOWN,
+                            'size' => \lajax\languagepicker\widgets\LanguagePicker::SIZE_SMALL,
+                            'parentTemplate' => '{activeItem}<ul class="menu mini">{items}</ul>'
+                        ]) ?>
                     </li>
                 </ul>
             </div>

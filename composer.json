@@ -9,13 +9,14 @@
     "yiisoft/yii2": ">=2.0.6",
     "yiisoft/yii2-bootstrap": "*",
     "yiisoft/yii2-swiftmailer": "*",
-    "Sammaye/yii2-mongodb": "dev-master",
+    "yiisoft/yii2-mongodb": "^2.0.5",
     "yii2tech/embedded": "^1.0.0",
     "kartik-v/yii2-icons": "^1.4.1",
     "kartik-v/yii2-widgets": "^3.4",
     "kartik-v/yii2-grid": "^3.1",
     "kartik-v/yii2-money": "^1.2",
-    "kartik-v/yii2-datecontrol": "^1.9"
+    "kartik-v/yii2-datecontrol": "^1.9",
+    "lajax/yii2-language-picker": "1.*"
   },
   "require-dev": {
     "yiisoft/yii2-codeception": "*",
