@@ -48,8 +48,8 @@ Icon::map($this);
             'visible' => Yii::$app->user->identity->admin
         ];
         $menuItems[] = [
-            'label' => Icon::show('comment-o') . ' Custom requests',
-            'url' => ['site/custom'],
+            'label' => Icon::show('comment-o') . ' Custom offers',
+            'url' => ['custom-offers/index'],
             'encode' => false,
             'visible' => Yii::$app->user->identity->admin
         ];

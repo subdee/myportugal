@@ -19,7 +19,6 @@ class AppAsset extends AssetBundle
         'css/app.css'
     ];
     public $js = [
-        'js/jquery.noconflict.js',
         'js/modernizr.2.7.1.min.js',
         'js/jquery-migrate-1.2.1.min.js',
         'js/jquery.placeholder.js',

@@ -16,8 +16,13 @@ class CustomOfferController extends Controller
             Yii::$app->session->setFlash('success', [
                 'type' => Growl::TYPE_SUCCESS,
                 'icon' => 'fa fa-check',
+                'title' => Yii::t('app', 'Custom request received'),
                 'message' => Yii::t('app',
-                    'Your request has been received. You will be contacted by one of our agents soon!'),
+                    'Your request for a custom offer on a trip to {destination} has been received {name}. 
+You will be contacted by one of our agents soon!', [
+                        'name' => $model->firstName,
+                        'destination' => $model->destination
+                    ]),
             ]);
 
             return $this->redirect(['site/index']);

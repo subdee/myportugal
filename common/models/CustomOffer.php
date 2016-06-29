@@ -3,7 +3,20 @@
 namespace common\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\data\ActiveDataProvider;
 use yii\mongodb\ActiveRecord;
+
+/**
+ * @property string $_id
+ * @property string $firstName
+ * @property string $lastName
+ * @property string $email
+ * @property string $destination
+ * @property string $departureDate
+ * @property int $duration
+ * @property string $description
+ */
 
 class CustomOffer extends ActiveRecord
 {
@@ -27,6 +40,7 @@ class CustomOffer extends ActiveRecord
             'departureDate',
             'duration',
             'description',
+            'requestedOn'
         ];
     }
 
@@ -64,5 +78,32 @@ class CustomOffer extends ActiveRecord
             'duration' => Yii::t('app/forms', '# of days'),
             'description' => Yii::t('app/forms', 'Describe your request'),
         ];
+    }
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::className(),
+                'createdAtAttribute' => 'requestedOn',
+                'updatedAtAttribute' => null,
+                'value' => time(),
+            ],
+        ];
+    }
+
+    public function getFullName()
+    {
+        return $this->firstName . ' ' . $this->lastName;
+    }
+
+    public static function getAll()
+    {
+        $provider = new ActiveDataProvider([
+            'query' => static::find()->orderBy(['completedOn' => SORT_DESC]),
+            'pagination' => ['pageSize' => 50]
+        ]);
+
+        return $provider;
     }
 }

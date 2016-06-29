@@ -1,4 +1,5 @@
 <?php
+use kartik\widgets\Growl;
 use lajax\languagepicker\widgets\LanguagePicker;
 use yii\bootstrap\Html;
 use yii\helpers\Url;
@@ -68,4 +69,21 @@ use yii\helpers\Url;
             </nav>
         </div>
     </header>
+<?php foreach (Yii::$app->session->getAllFlashes() as $message): ?>
+    <?= Growl::widget([
+        'type' => (!empty($message['type'])) ? $message['type'] : Growl::TYPE_DANGER,
+        'title' => (!empty($message['title'])) ? Html::encode($message['title']) : Yii::t('app', 'Oops!'),
+        'icon' => (!empty($message['icon'])) ? $message['icon'] : 'fa fa-remove',
+        'body' => (!empty($message['message'])) ? Html::encode($message['message']) : Yii::t('app',
+            'Something went wrong!'),
+        'showSeparator' => true,
+        'delay' => 0,
+        'pluginOptions' => [
+            'placement' => [
+                'from' => 'top',
+                'align' => 'right',
+            ]
+        ]
+    ]) ?>
+<?php endforeach; ?>
 <?= $content ?>

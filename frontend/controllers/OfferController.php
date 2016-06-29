@@ -30,6 +30,15 @@ class OfferController extends Controller
         $model->newsletter = true;
 
         if ($model->load(Yii::$app->request->post()) && $model->save($offer)) {
+            Yii::$app->session->setFlash('success', [
+                'type' => Growl::TYPE_SUCCESS,
+                'icon' => 'fa fa-check',
+                'title' => Yii::t('app', 'Booking successful'),
+                'message' => Yii::t('app',
+                    'Thank you for your booking {name}. You will be contacted by our agents for further details.', [
+                        'name' => $model->firstName,
+                    ]),
+            ]);
             $this->redirect(['site/index']);
         }
 
