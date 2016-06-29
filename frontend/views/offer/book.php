@@ -10,7 +10,7 @@ $this->title = Yii::t('app', 'Book {offer}', ['offer' => $offer->title]);
 <div class="row">
     <div id="main" class="col-sms-6 col-sm-8 col-md-9">
         <div class="booking-section travelo-box">
-            <?php $form = ActiveForm::begin(['class' => 'booking-form']); ?>
+            <?php $form = ActiveForm::begin(['id' => 'booking-form']); ?>
             <div class="person-information">
                 <h2><?= Yii::t('app', 'Booking options') ?></h2>
                 <div class="form-group row">
@@ -95,7 +95,10 @@ $this->title = Yii::t('app', 'Book {offer}', ['offer' => $offer->title]);
             </div>
             <div class="form-group row">
                 <div class="col-sm-6 col-md-5">
-                    <button type="submit" class="full-width btn-large">CONFIRM BOOKING</button>
+                    <a href="#" onclick="$('#booking-form').submit(); return false;">
+                        <img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" align="left"
+                             style="margin-right:7px;">
+                    </a>
                 </div>
             </div>
             <?php ActiveForm::end() ?>

@@ -7,6 +7,7 @@ use yii\data\ActiveDataProvider;
 use yii2tech\embedded\mongodb\ActiveRecord;
 
 /**
+ * @property string $_id
  * @property integer $userId
  * @property integer $adults
  * @property integer $children

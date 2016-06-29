@@ -108,6 +108,6 @@ class BookingForm extends Model
         $booking->children = $this->children;
         $booking->remarks = $this->remarks;
 
-        return $booking->save();
+        return $booking->save() ? $booking : false;
     }
 }
