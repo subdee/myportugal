@@ -55,7 +55,7 @@ class SignupForm extends Model
      */
     public function signup($admin = false, $agent = false)
     {
-        if ( ! $this->validate()) {
+        if (!$this->validate()) {
             return null;
         }
 

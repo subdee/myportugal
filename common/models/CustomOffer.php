@@ -17,7 +17,6 @@ use yii\mongodb\ActiveRecord;
  * @property int $duration
  * @property string $description
  */
-
 class CustomOffer extends ActiveRecord
 {
 

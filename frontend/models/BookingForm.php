@@ -87,7 +87,7 @@ class BookingForm extends Model
     public function save(Offer $offer)
     {
         $user = User::findOne(['email' => $this->email]);
-        if ( ! $user) {
+        if (!$user) {
             $user = new User();
             $user->username = $this->email;
             $user->email = $this->email;

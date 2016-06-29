@@ -12,7 +12,7 @@ class OfferController extends Controller
     public function actionIndex($slug)
     {
         $offer = Offer::findOne(['slug' => $slug]);
-        if ( ! $offer) {
+        if (!$offer) {
             throw new NotFoundHttpException(Yii::t('app', 'This offer does not exist'));
         }
 
@@ -23,7 +23,7 @@ class OfferController extends Controller
     {
         /** @var Offer|null */
         $offer = Offer::findOne(['slug' => $slug]);
-        if ( ! $offer) {
+        if (!$offer) {
             throw new NotFoundHttpException(Yii::t('app', 'This offer does not exist'));
         }
 

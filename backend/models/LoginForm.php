@@ -31,9 +31,9 @@ class LoginForm extends \common\models\LoginForm
      */
     public function validateRole($attribute)
     {
-        if ( ! $this->hasErrors()) {
+        if (!$this->hasErrors()) {
             $user = $this->getUser();
-            if ( ! $user || ! $user->validateRole()) {
+            if (!$user || !$user->validateRole()) {
                 $this->addError($attribute, 'You don\'t have access here.');
             }
         }
