@@ -24,7 +24,7 @@ $this->title = 'myportugal.nl - Homepage';
                 <?= Html::a(Button::widget([
                     'label' => Yii::t('app', 'Get a tailor made quote now'),
                     'options' => ['class' => 'btn btn-default btn-hollow']
-                ]), '#') ?>
+                ]), ['custom-offer/index']) ?>
             </div>
         </div>
     </div>

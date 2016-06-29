@@ -7,6 +7,7 @@ use frontend\assets\AppAsset;
 use frontend\assets\FontAsset;
 use frontend\assets\IeAsset;
 use kartik\icons\Icon;
+use kartik\widgets\Growl;
 use yii\helpers\Html;
 
 AppAsset::register($this);
@@ -27,7 +28,23 @@ Icon::map($this);
 </head>
 <body>
 <?php $this->beginBody() ?>
-
+<?php foreach (Yii::$app->session->getAllFlashes() as $message):; ?>
+    <?= Growl::widget([
+        'type' => ( ! empty($message['type'])) ? $message['type'] : Growl::TYPE_DANGER,
+        'title' => ( ! empty($message['title'])) ? Html::encode($message['title']) : Yii::t('app', 'Oops!'),
+        'icon' => ( ! empty($message['icon'])) ? $message['icon'] : 'fa fa-remove',
+        'body' => ( ! empty($message['message'])) ? Html::encode($message['message']) : Yii::t('app',
+            'Something went wrong!'),
+        'showSeparator' => true,
+        'delay' => 0,
+        'pluginOptions' => [
+            'placement' => [
+                'from' => 'top',
+                'align' => 'right',
+            ]
+        ]
+    ]) ?>
+<?php endforeach; ?>
 <div id="page-wrapper">
     <?php $this->beginContent('@app/views/layouts/header.php') ?>
     <?php $this->endContent() ?>
