@@ -6,10 +6,21 @@ use common\models\queries\OfferQuery;
 use yii\behaviors\SluggableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\data\ActiveDataProvider;
-use yii\web\IdentityInterface;
 use yii2tech\embedded\mongodb\ActiveRecord;
 
 /**
+ * @property string $_id
+ * @property string $title
+ * @property string $slug
+ * @property float $price
+ * @property string $description
+ * @property string $origin
+ * @property string $destination
+ * @property bool $active
+ * @property string $created_on
+ * @property string $updated_on
+ * @property int $createdBy
+ * @property User $creator
  * @property Flight $flight
  * @property Hotel $hotel
  * @property Image $photo
@@ -95,7 +106,7 @@ class Offer extends ActiveRecord
         return new OfferQuery(get_called_class());
     }
 
-    public static function getAll(IdentityInterface $user)
+    public static function getAll(User $user)
     {
         $query = static::find();
         if ($user->agent) {

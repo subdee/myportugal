@@ -9,6 +9,7 @@ use Yii;
 use yii\base\InvalidParamException;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use yii\web\Application;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 
@@ -106,10 +107,12 @@ class UserController extends Controller
      */
     public function actionSignup()
     {
+        /** @var Application */
+        $app = Yii::$app;
         $model = new SignupForm();
-        if ($model->load(Yii::$app->request->post())) {
+        if ($model->load($app->request->post())) {
             if ($user = $model->signup()) {
-                if (Yii::$app->getUser()->login($user)) {
+                if ($app->getUser()->login($user)) {
                     return $this->goHome();
                 }
             }

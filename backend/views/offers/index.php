@@ -38,7 +38,7 @@ $this->title = 'My Portugal Backend';
                 'class' => '\kartik\grid\ActionColumn',
                 'template' => '{update}{activate}',
                 'buttons' => [
-                    'update' => function ($url, $model) {
+                    'update' => function ($url) {
                         return Html::a(Icon::show('pencil'), $url, ['title' => Yii::t('app', 'Edit')]);
                     },
                     'activate' => function ($url, $model) {

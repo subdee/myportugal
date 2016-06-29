@@ -44,7 +44,7 @@ class OffersController extends Controller
     public function actionIndex()
     {
         $dataProvider = Offer::getAll(Yii::$app->user->identity);
-        
+
         return $this->render('index', ['dataProvider' => $dataProvider]);
     }
 
@@ -100,9 +100,10 @@ class OffersController extends Controller
 
     public function actionActivate($id)
     {
+        /** @var Offer|null */
         $offer = Offer::findOne($id);
         if ($offer) {
-            $offer->updateAttributes(['active' => ! $offer->active]);
+            $offer->updateAttributes(['active' => !$offer->active]);
         }
         $this->redirect(['offers/index']);
     }
