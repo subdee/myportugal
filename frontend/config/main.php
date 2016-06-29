@@ -14,9 +14,9 @@ return [
     'language' => 'nl-NL',
     'components' => [
         'paypal' => [
-            'class' => 'frontend/components/Paypal',
-            'client_id' => 'AWsfzYDLNe-0ShKgUup9yYn3y2ckMzSuiMGKwQp53Bhp4VHhF6wH36IbcC-JNG301MefHHiGDqjsF7Ru',
-            'client_secret' => 'EN7xGaUrtv5AQ1NXnDogFl8qGg9RIxmk6afY8xD9J0JtLaJL7EQNzStK3hzVdEt7UXKLkFk85dgfLWq1',
+            'class' => 'frontend\components\Paypal',
+            'client_id' => getenv('PAYPAL_ID'),
+            'client_secret' => getenv('PAYPAL_SECRET'),
         ],
         'i18n' => [
             'translations' => [

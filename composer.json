@@ -29,7 +29,8 @@
     "codeception/verify": "^0.3.0"
   },
   "config": {
-    "process-timeout": 1800
+    "process-timeout": 1800,
+    "discard-changes": true
   },
   "extra": {
     "asset-installer-paths": {

@@ -79,6 +79,7 @@ use yii\helpers\Url;
         'showSeparator' => true,
         'delay' => 0,
         'pluginOptions' => [
+            'delay' => 5000,
             'placement' => [
                 'from' => 'top',
                 'align' => 'right',
