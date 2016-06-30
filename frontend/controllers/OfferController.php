@@ -5,6 +5,7 @@ use common\models\Booking;
 use common\models\Offer;
 use frontend\components\Paypal;
 use frontend\models\BookingForm;
+use frontend\models\TravelSearchForm;
 use kartik\widgets\Growl;
 use PayPal\Api\Amount;
 use PayPal\Api\Item;
@@ -63,21 +64,24 @@ class OfferController extends Controller
 
     public function actionAfterPayment($success)
     {
-        /** @var Paypal $paypal */
-        $paypal = Yii::$app->paypal;
-
-        $paymentId = Yii::$app->request->get('paymentId');
-        $payment = Payment::get($paymentId, $paypal->getContext());
-
-        $booking = Booking::findOne($payment->getTransactions()[0]->getInvoiceNumber());
-        if (!$booking) {
-            return $this->redirect(['site/index']);
-        }
-
-        $execution = new PaymentExecution();
-        $execution->setPayerId(Yii::$app->request->get('PayerID'));
-
         try {
+            if (!$success) {
+                throw new \Exception('Paypal success was false');
+            }
+
+            /** @var Paypal $paypal */
+            $paypal = Yii::$app->paypal;
+
+            $paymentId = Yii::$app->request->get('paymentId');
+            $payment = Payment::get($paymentId, $paypal->getContext());
+
+            $booking = Booking::findOne($payment->getTransactions()[0]->getInvoiceNumber());
+            if (!$booking) {
+                return $this->redirect(['site/index']);
+            }
+
+            $execution = new PaymentExecution();
+            $execution->setPayerId(Yii::$app->request->get('PayerID'));
             $payment->execute($execution, $paypal->getContext());
             $payment = Payment::get($paymentId, $paypal->getContext());
 
@@ -118,6 +122,18 @@ class OfferController extends Controller
         return $this->redirect(['site/index']);
     }
 
+    public function actionSearch()
+    {
+        $travelSearch = new TravelSearchForm();
+        $offers = [];
+
+        if ($travelSearch->load(Yii::$app->request->post())) {
+            $offers = Offer::find()->bySearchForm($travelSearch)->all();
+        }
+
+        return $this->render('search', ['offers' => $offers]);
+    }
+
     private function createPayment(Booking $booking)
     {
         $payer = new Payer();
@@ -128,32 +144,32 @@ class OfferController extends Controller
             'n' => $booking->adults,
             'offer' => $booking->offer->title
         ]))
-             ->setCurrency(Yii::$app->formatter->currencyCode)
-             ->setQuantity($booking->adults)
-             ->setPrice($booking->offer->price);
+            ->setCurrency(Yii::$app->formatter->currencyCode)
+            ->setQuantity($booking->adults)
+            ->setPrice($booking->offer->price);
 
         $itemList = new ItemList();
         $itemList->setItems([$item]);
 
         $amount = new Amount();
         $amount->setCurrency(Yii::$app->formatter->currencyCode)
-               ->setTotal($booking->offer->price * $booking->adults);
+            ->setTotal($booking->offer->price * $booking->adults);
 
         $transaction = new Transaction();
         $transaction->setAmount($amount)
-                    ->setItemList($itemList)
-                    ->setDescription('Payment for booking ' . (string)$booking->_id)
-                    ->setInvoiceNumber((string)$booking->_id);
+            ->setItemList($itemList)
+            ->setDescription('Payment for booking ' . (string)$booking->_id)
+            ->setInvoiceNumber((string)$booking->_id);
 
         $redirectUrls = new RedirectUrls();
         $redirectUrls->setReturnUrl(Url::to(['offer/after-payment', 'success' => 1], true))
-                     ->setCancelUrl(Url::to(['offer/after-payment', 'success' => 0], true));
+            ->setCancelUrl(Url::to(['offer/after-payment', 'success' => 0], true));
 
         $payment = new Payment();
         $payment->setIntent("sale")
-                ->setPayer($payer)
-                ->setRedirectUrls($redirectUrls)
-                ->setTransactions([$transaction]);
+            ->setPayer($payer)
+            ->setRedirectUrls($redirectUrls)
+            ->setTransactions([$transaction]);
 
         $booking->payment = (object)[
             'invoice_number' => $transaction->getInvoiceNumber(),

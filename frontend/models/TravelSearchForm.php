@@ -20,7 +20,7 @@ class TravelSearchForm extends Model
     public function rules()
     {
         return [
-            [['dateFrom', 'duration', 'adults', 'children', 'destination', 'hotelType'], 'required'],
+            [['dateFrom', 'duration', 'adults', 'children', 'destination', 'hotelType'], 'safe'],
         ];
     }
 
