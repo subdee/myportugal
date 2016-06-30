@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ae22953a78d40c9383b8439f591f58aa",
-    "content-hash": "05fcd72482de401e8fe8821e0418dff4",
+    "hash": "e8086df0d3fe9bd6ce51594f1cfb7670",
+    "content-hash": "0e601a1f8163133ee7c688346f57b8f8",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -170,6 +170,36 @@
                 "mask",
                 "plugins"
             ]
+        },
+        {
+            "name": "bower-asset/map-icons",
+            "version": "v3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/scottdejonge/map-icons.git",
+                "reference": "0a53d672d3d2f3b5d434e9aaf67058c5a29a799b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/scottdejonge/map-icons/zipball/0a53d672d3d2f3b5d434e9aaf67058c5a29a799b",
+                "reference": "0a53d672d3d2f3b5d434e9aaf67058c5a29a799b",
+                "shasum": ""
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": "dist/js/map-icons.js",
+                "bower-asset-ignore": [
+                    "**/.*",
+                    "node_modules",
+                    "bower_components",
+                    "test",
+                    "tests"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "An icon font for use with Google Maps API and Google Places API using SVG markers and icon labels"
         },
         {
             "name": "bower-asset/punycode",

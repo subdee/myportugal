@@ -21,7 +21,7 @@ $this->title = Yii::t('app', 'Book {offer}', ['offer' => $offer->title]);
                     </div>
                     <div class="col-sm-6 col-md-5">
                         <?= $form->field($model, 'children')->dropDownList(
-                            [1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5]
+                            [0 => 0, 1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5]
                         ) ?>
                     </div>
                 </div>

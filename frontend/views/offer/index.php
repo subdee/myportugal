@@ -2,12 +2,15 @@
 
 /* @var $this yii\web\View */
 
+use frontend\assets\MapIconsAsset;
+use frontend\models\Amenity;
 use kartik\icons\Icon;
 use yii\bootstrap\BootstrapPluginAsset;
 use yii\bootstrap\Html;
 use yii\helpers\Url;
 
 BootstrapPluginAsset::register($this);
+MapIconsAsset::register($this);
 
 $this->title = $offer->title;
 ?>
@@ -117,8 +120,8 @@ $this->title = $offer->title;
                             <?php foreach ($offer->hotel->amenities as $amenity) : ?>
                                 <li class="col-md-4 col-sm-6">
                                     <div class="icon-box style1">
-                                        <?= Icon::show($amenity['icon']) ?>
-                                        <?= $amenity['name'] ?>
+                                        <i class="<?= $amenity->icon ?>"></i>
+                                        <?= Amenity::getName($amenity->type) ?>
                                     </div>
                                 </li>
                             <?php endforeach ?>

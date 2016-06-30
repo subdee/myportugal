@@ -1,7 +1,11 @@
 <?php
 
-/* @var $this yii\web\View */
+/** @var $this yii\web\View */
+/** @var $offers \common\models\Offer[] */
+/** @var $destinations Destination[] */
 
+use common\models\Destination;
+use common\models\Hotel;
 use kartik\date\DatePicker;
 use kartik\form\ActiveForm;
 use kartik\icons\Icon;
@@ -107,6 +111,7 @@ $this->title = 'myportugal.nl - Homepage';
             <?php if ($i === 0) : ?>
                 <div class="col-sm-6 col-md-3">
                     <article class="box travel-search-form">
+                        <h3><?= Yii::t('app', 'Search offers') ?></h3>
                         <div class="row">
                             <div class="col-md-12">
                                 <?php $form = ActiveForm::begin([
@@ -119,33 +124,14 @@ $this->title = 'myportugal.nl - Homepage';
                                     'removeButton' => false,
                                     'pluginOptions' => ['autoclose' => true]
                                 ]) ?>
-                                <?= $form->field($model, 'dateTo')->widget(DatePicker::className(), [
-                                    'options' => ['placeholder' => 'To...'],
-                                    'removeButton' => false,
-                                    'pluginOptions' => ['autoclose' => true]
-                                ]) ?>
+                                <?= $form->field($model, 'duration') ?>
 
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <?= $form->field($model, 'adults')->dropDownList(
-                                            [1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5]
-                                        ) ?>
+                                <?= $form->field($model, 'destination')->dropDownList(
+                                    Destination::find()->select(['destination'])->where(['active' => 1])->indexBy('id')->column()
+                                ) ?>
 
-                                    </div>
-                                    <div class="col-md-6">
-                                        <?= $form->field($model, 'children')->dropDownList(
-                                            [1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5]
-                                        ) ?>
-                                    </div>
-                                </div>
-
-                                <?= $form->field($model, 'origin')->dropDownList(
-                                    [
-                                        'amsterdam' => Yii::t('app/forms', 'Amsterdam Schiphol'),
-                                        'eindhoven' => Yii::t('app/forms', 'Eindhoven'),
-                                        'brussels' => Yii::t('app/forms', 'Brussels'),
-                                        'dusseldorf' => Yii::t('app/forms', 'Dusseldorf'),
-                                    ]
+                                <?= $form->field($model, 'hotelType')->dropDownList(
+                                    Hotel::getTypes()
                                 ) ?>
 
                                 <div class="form-group">
@@ -164,13 +150,9 @@ $this->title = 'myportugal.nl - Homepage';
                     <article class="box destinations">
                         <h3><?= Yii::t('app', 'Destinations') ?></h3>
                         <ul>
-                            <li><a href="#">Lisbon</a></li>
-                            <li><a href="#">Algarve</a></li>
-                            <li><a href="#">Portimao</a></li>
-                            <li><a href="#">Faro</a></li>
-                            <li><a href="#">Porto</a></li>
-                            <li><a href="#">Averio</a></li>
-                            <li><a href="#">Batalha</a></li>
+                            <?php foreach ($destinations as $destination) : ?>
+                                <li><a href="#"><?= $destination->destination ?></a></li>
+                            <?php endforeach; ?>
                         </ul>
                     </article>
                 </div>

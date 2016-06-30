@@ -1,7 +1,10 @@
 <?php
+use common\models\Amenity;
+use common\models\Hotel;
 use kartik\datecontrol\DateControl;
 use kartik\widgets\ActiveForm;
 use kartik\widgets\FileInput;
+use kartik\widgets\Select2;
 use yii\bootstrap\Html;
 
 $form = ActiveForm::begin([
@@ -102,6 +105,9 @@ $form = ActiveForm::begin([
         <fieldset>
             <h4>Hotel details</h4>
             <?= $form->field($hotel, 'name') ?>
+            <?= $form->field($hotel, 'type')->dropDownList(
+                Hotel::getTypes()
+            ) ?>
             <?= $form->field($hotel, 'address')->textarea() ?>
             <?= $form->field($hotel, 'phone') ?>
             <?= $form->field($hotel, 'email') ?>
@@ -112,6 +118,16 @@ $form = ActiveForm::begin([
                 ]
             ]) ?>
             <?= $form->field($hotel, 'description')->textarea() ?>
+            <?= $form->field($hotel, 'amenities')->widget(Select2::className(), [
+                'data' => Amenity::getList(),
+                'language' => Yii::$app->language,
+                'options' => [
+                    'multiple' => true,
+                ],
+                'pluginOptions' => [
+                    'allowClear' => true
+                ],
+            ]) ?>
         </fieldset>
     </div>
 </div>

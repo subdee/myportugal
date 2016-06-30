@@ -8,11 +8,11 @@ use yii\base\Model;
 class TravelSearchForm extends Model
 {
     public $dateFrom;
-    public $dateTo;
+    public $duration;
     public $adults;
     public $children;
-    public $origin;
-
+    public $destination;
+    public $hotelType;
 
     /**
      * @inheritdoc
@@ -20,7 +20,7 @@ class TravelSearchForm extends Model
     public function rules()
     {
         return [
-            [['dateFrom', 'dateTo', 'adults', 'children', 'origin'], 'required'],
+            [['dateFrom', 'duration', 'adults', 'children', 'destination', 'hotelType'], 'required'],
         ];
     }
 
@@ -30,11 +30,12 @@ class TravelSearchForm extends Model
     public function attributeLabels()
     {
         return [
-            'dateFrom' => Yii::t('app/forms', 'Leave'),
-            'dateTo' => Yii::t('app/forms', 'Return'),
+            'dateFrom' => Yii::t('app/forms', 'Date of trip'),
+            'duration' => Yii::t('app/forms', 'Length of stay (# of days)'),
             'adults' => Yii::t('app/forms', '# of adults'),
             'children' => Yii::t('app/forms', '# of children'),
-            'origin' => Yii::t('app/forms', 'Preferred airport'),
+            'destination' => Yii::t('app/forms', 'Destination'),
+            'hotelType' => Yii::t('app/forms', 'Accommodation type'),
         ];
     }
 }

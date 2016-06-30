@@ -1,6 +1,7 @@
 <?php
 namespace frontend\controllers;
 
+use common\models\Destination;
 use common\models\Offer;
 use frontend\models\ContactForm;
 use frontend\models\TravelSearchForm;
@@ -67,8 +68,9 @@ class SiteController extends Controller
 
         $model = new TravelSearchForm();
         $offers = Offer::find()->where(['active' => true])->all();
+        $destinations = Destination::findAll(['active' => 1]);
 
-        return $this->render('index', ['model' => $model, 'offers' => $offers]);
+        return $this->render('index', ['model' => $model, 'offers' => $offers, 'destinations' => $destinations]);
     }
 
     /**

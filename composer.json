@@ -17,7 +17,8 @@
     "kartik-v/yii2-money": "^1.2",
     "kartik-v/yii2-datecontrol": "^1.9",
     "lajax/yii2-language-picker": "1.*",
-    "paypal/rest-api-sdk-php": "^1.7.3"
+    "paypal/rest-api-sdk-php": "^1.7.3",
+    "bower-asset/map-icons": "~3.0.0"
   },
   "require-dev": {
     "yiisoft/yii2-codeception": "*",

@@ -53,7 +53,8 @@ Icon::map($this);
             'encode' => false,
             'visible' => Yii::$app->user->identity->admin
         ];
-        $menuItems[] = ['label' => Icon::show('cogs') . ' Offers', 'url' => ['offers/index'], 'encode' => false];
+        $menuItems[] = ['label' => Icon::show('tags') . ' Offers', 'url' => ['offers/index'], 'encode' => false];
+        $menuItems[] = ['label' => Icon::show('plane') . ' Destinations', 'url' => ['destinations/index'], 'encode' => false];
         $menuItems[] = [
             'label' => Icon::show('user-secret') . ' Agents',
             'url' => ['agents/index'],

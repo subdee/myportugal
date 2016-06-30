@@ -1,6 +1,7 @@
 <?php
 namespace backend\controllers;
 
+use common\models\Amenity;
 use common\models\Flight;
 use common\models\Hotel;
 use common\models\Image;
@@ -59,6 +60,16 @@ class OffersController extends Controller
             && $offer->flight->load(Yii::$app->request->post())
             && $offer->hotel->load(Yii::$app->request->post())
         ) {
+            $amnties = [];
+            $amenities = Yii::$app->request->post('Hotel')['amenities'];
+            foreach ($amenities as $amenity) {
+                $amnty = new Amenity();
+                $amnty->type = $amenity;
+                $amnty->assignIcon();
+                $amnties[] = $amnty;
+            }
+            $offer->hotel->amenities = $amnties;
+            
             $newImage = UploadedFile::getInstance($offer, 'photoFile');
             if ($newImage) {
                 $image->create($newImage);
@@ -80,11 +91,26 @@ class OffersController extends Controller
         $flight = $offer->flight;
         $hotel = $offer->hotel;
         $image = $offer->photo ?: new Image();
+        $amenities = $offer->hotel->amenities;
+        $offer->hotel->amenities = [];
+        foreach ($amenities as $amenity) {
+            $offer->hotel->amenities[] = $amenity->type;
+        }
 
         if ($offer->load(Yii::$app->request->post())
             && $offer->flight->load(Yii::$app->request->post())
             && $offer->hotel->load(Yii::$app->request->post())
         ) {
+            $amnties = [];
+            $amenities = Yii::$app->request->post('Hotel')['amenities'];
+            foreach ($amenities as $amenity) {
+                $amnty = new Amenity();
+                $amnty->type = $amenity;
+                $amnty->assignIcon();
+                $amnties[] = $amnty;
+            }
+            $offer->hotel->amenities = $amnties;
+
             $newImage = UploadedFile::getInstance($offer, 'photoFile');
             if ($newImage) {
                 $image->create($newImage);

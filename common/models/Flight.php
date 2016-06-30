@@ -4,6 +4,12 @@ namespace common\models;
 
 use yii\base\Model;
 
+/**
+ * @property int $duration
+ * @property array $beginFlightDuration
+ * @property array $returnFlightDuration
+ * @property float $totalPrice
+ */
 class Flight extends Model
 {
     public $airline;
