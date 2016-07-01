@@ -61,7 +61,7 @@ class OffersController extends Controller
             && $offer->hotel->load(Yii::$app->request->post())
         ) {
             $amnties = [];
-            $amenities = Yii::$app->request->post('Hotel')['amenities'];
+            $amenities = (array)Yii::$app->request->post('Hotel')['amenities'];
             foreach ($amenities as $amenity) {
                 $amnty = new Amenity();
                 $amnty->type = $amenity;
@@ -102,7 +102,7 @@ class OffersController extends Controller
             && $offer->hotel->load(Yii::$app->request->post())
         ) {
             $amnties = [];
-            $amenities = Yii::$app->request->post('Hotel')['amenities'];
+            $amenities = (array)Yii::$app->request->post('Hotel')['amenities'];
             foreach ($amenities as $amenity) {
                 $amnty = new Amenity();
                 $amnty->type = $amenity;
