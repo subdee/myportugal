@@ -2,6 +2,11 @@
 
 namespace common\models;
 
+use frontend\components\SendGrid;
+use kartik\widgets\Growl;
+use SendGrid\Exception;
+use Yii;
+use yii\base\Event;
 use yii\behaviors\TimestampBehavior;
 use yii\data\ActiveDataProvider;
 use yii2tech\embedded\mongodb\ActiveRecord;
@@ -29,6 +34,15 @@ class Booking extends ActiveRecord
     const STATUS_PAID = 2;
     const STATUS_CANCELLED = 8;
     const STATUS_FAILED = 9;
+
+    const EVENT_AFTER_PAYMENT = 'after-payment';
+
+    public function init()
+    {
+        $this->on(self::EVENT_AFTER_PAYMENT, [self::className(), 'sendAfterPaymentEmail']);
+        $this->on(self::EVENT_AFTER_PAYMENT, [self::className(), 'saveToNewsletterList']);
+        parent::init();
+    }
 
     /**
      * @return string the name of the index associated with this ActiveRecord class.
@@ -102,6 +116,9 @@ class Booking extends ActiveRecord
         ];
     }
 
+    /**
+     * @return null|User
+     */
     public function getUser()
     {
         return User::findOne($this->userId);
@@ -136,5 +153,61 @@ class Booking extends ActiveRecord
         ]);
 
         return $provider;
+    }
+
+    public static function sendAfterPaymentEmail(Event $event)
+    {
+        /** @var Booking $booking */
+        $booking = $event->sender;
+        $user = $booking->getUser();
+
+        /** @var SendGrid $sendGrid */
+        $sendGrid = Yii::$app->sendGrid;
+        $sendGrid->setTo($booking->getFullName(), $user->email);
+        $sendGrid->setContent('afterPayment', [
+            'name' => $booking->firstName,
+            'destination' => $booking->offer->destination,
+            'beginDate' => $booking->offer->flight->beginDepartureDate,
+        ], Yii::$app->params['sendgrid']['templates']['main']);
+        $sendGrid->setSubject(Yii::t('app/emails', 'Your booking with Feriados.nl'));
+        try {
+            $sendGrid->send();
+        } catch (\Exception $e) {
+            Yii::warning('After payment email for booking with ID ' . (string)$booking->_id . ' failed with message: '
+                . $e->getMessage());
+            Yii::$app->session->setFlash('error', [
+                'type' => Growl::TYPE_DANGER,
+                'icon' => 'fa fa-ban',
+                'title' => Yii::t('app', 'Email could not be sent'),
+                'message' => Yii::t(
+                    'app',
+                    'We had trouble sending a confirmation email to ' . $user->email . ' but do not worry, your booking
+                     was successful. You will be contacted by our support if something is amiss. Enjoy your day!'
+                ),
+            ]);
+        }
+
+        return;
+    }
+
+    public static function saveToNewsletterList(Event $e)
+    {
+        /** @var Booking $booking */
+        $booking = $e->sender;
+        $user = $booking->getUser();
+        if (!$user->newsletter) {
+            return;
+        }
+
+        /** @var SendGrid $sendGrid */
+        $sendGrid = Yii::$app->sendGrid;
+        $sendGrid->addRecipientToList(
+            $booking->firstName,
+            $booking->lastName,
+            $user->email,
+            Yii::$app->params['sendgrid']['lists']['newsletter']
+        );
+
+        return;
     }
 }

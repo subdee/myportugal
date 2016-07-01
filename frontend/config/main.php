@@ -13,6 +13,12 @@ return [
     'controllerNamespace' => 'frontend\controllers',
     'language' => 'nl-NL',
     'components' => [
+        'sendGrid' => [
+            'class' => 'frontend\components\SendGrid',
+            'viewPath' => '@frontend/mail',
+            'apiKey' => getenv('SENDGRID_API_KEY'),
+            'from' => 'support@feriados.nl'
+        ],
         'paypal' => [
             'class' => 'frontend\components\Paypal',
             'client_id' => getenv('PAYPAL_ID'),

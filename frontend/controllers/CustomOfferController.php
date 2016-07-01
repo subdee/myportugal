@@ -25,6 +25,8 @@ You will be contacted by one of our agents soon!', [
                     ]),
             ]);
 
+            $model->trigger(CustomOffer::EVENT_AFTER_CUSTOM_REQUEST);
+
             return $this->redirect(['site/index']);
         }
 

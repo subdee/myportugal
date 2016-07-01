@@ -17,8 +17,8 @@ use PayPal\Api\RedirectUrls;
 use PayPal\Api\Transaction;
 use Yii;
 use yii\helpers\Url;
-use yii\log\Logger;
 use yii\web\Controller;
+use yii\web\HttpException;
 use yii\web\NotFoundHttpException;
 
 class OfferController extends Controller
@@ -64,21 +64,22 @@ class OfferController extends Controller
 
     public function actionAfterPayment($success)
     {
+        if (!$success) {
+            throw new HttpException(404, 'Paypal transaction was not successful');
+        }
+
+        /** @var Paypal $paypal */
+        $paypal = Yii::$app->paypal;
+
+        $paymentId = Yii::$app->request->get('paymentId');
+        $payment = Payment::get($paymentId, $paypal->getContext());
+
+        $booking = Booking::findOne($payment->getTransactions()[0]->getInvoiceNumber());
+        if (!$booking) {
+            return $this->redirect(['site/index']);
+        }
+
         try {
-            if (!$success) {
-                throw new \Exception('Paypal success was false');
-            }
-
-            /** @var Paypal $paypal */
-            $paypal = Yii::$app->paypal;
-
-            $paymentId = Yii::$app->request->get('paymentId');
-            $payment = Payment::get($paymentId, $paypal->getContext());
-
-            $booking = Booking::findOne($payment->getTransactions()[0]->getInvoiceNumber());
-            if (!$booking) {
-                return $this->redirect(['site/index']);
-            }
 
             $execution = new PaymentExecution();
             $execution->setPayerId(Yii::$app->request->get('PayerID'));
@@ -93,6 +94,8 @@ class OfferController extends Controller
             $booking->completedOn = time();
             $booking->status = Booking::STATUS_PAID;
 
+            $booking->trigger(Booking::EVENT_AFTER_PAYMENT);
+
             Yii::$app->session->setFlash('success', [
                 'type' => Growl::TYPE_SUCCESS,
                 'icon' => 'fa fa-check',
@@ -104,7 +107,7 @@ class OfferController extends Controller
                 ),
             ]);
         } catch (\Exception $e) {
-            Yii::$app->log->logger->log('Paypal initialization failed: ' . $e->getMessage(), Logger::LEVEL_ERROR);
+            Yii::error('Paypal payment failed: ' . $e->getMessage());
             Yii::$app->session->setFlash('error', [
                 'type' => Growl::TYPE_DANGER,
                 'icon' => 'fa fa-ban',
@@ -182,7 +185,7 @@ class OfferController extends Controller
             $paypal = Yii::$app->paypal;
             $payment->create($paypal->getContext());
         } catch (\Exception $e) {
-            Yii::$app->log->logger->log('Paypal initialization failed: ' . $e->getMessage(), Logger::LEVEL_ERROR);
+            Yii::error('Paypal initialization failed: ' . $e->getMessage());
 
             return false;
         }

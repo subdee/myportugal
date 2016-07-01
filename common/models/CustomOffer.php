@@ -2,7 +2,10 @@
 
 namespace common\models;
 
+use frontend\components\SendGrid;
+use kartik\widgets\Growl;
 use Yii;
+use yii\base\Event;
 use yii\behaviors\TimestampBehavior;
 use yii\data\ActiveDataProvider;
 use yii\mongodb\ActiveRecord;
@@ -19,6 +22,14 @@ use yii\mongodb\ActiveRecord;
  */
 class CustomOffer extends ActiveRecord
 {
+
+    const EVENT_AFTER_CUSTOM_REQUEST = 'after-custom-request';
+
+    public function init()
+    {
+        $this->on(self::EVENT_AFTER_CUSTOM_REQUEST, [self::className(), 'sendAfterRequestEmail']);
+        parent::init();
+    }
 
     /**
      * @return string the name of the index associated with this ActiveRecord class.
@@ -104,5 +115,37 @@ class CustomOffer extends ActiveRecord
         ]);
 
         return $provider;
+    }
+
+    public static function sendAfterRequestEmail(Event $event)
+    {
+        /** @var CustomOffer $customOffer */
+        $customOffer = $event->sender;
+
+        /** @var SendGrid $sendGrid */
+        $sendGrid = Yii::$app->sendGrid;
+        $sendGrid->setTo($customOffer->getFullName(), $customOffer->email);
+        $sendGrid->setContent('afterCustomRequest', [
+            'name' => $customOffer->firstName,
+            'destination' => $customOffer->destination,
+        ], Yii::$app->params['sendgrid']['templates']['main']);
+        $sendGrid->setSubject(Yii::t('app/emails', 'Your custom offer from Feriados.nl'));
+        try {
+            $sendGrid->send();
+        } catch (\Exception $e) {
+            Yii::warning('Custom request email failed with message: ' . $e->getMessage());
+            Yii::$app->session->setFlash('error', [
+                'type' => Growl::TYPE_DANGER,
+                'icon' => 'fa fa-ban',
+                'title' => Yii::t('app', 'Email could not be sent'),
+                'message' => Yii::t(
+                    'app',
+                    'We had trouble sending a confirmation email to ' . $customOffer->email . ' but do not worry, your 
+                    request has been received.'
+                ),
+            ]);
+        }
+
+        return;
     }
 }
