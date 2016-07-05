@@ -4,4 +4,4 @@
     'destination' => $destination,
 ]) ?>
 
-<?= \Yii::t('app', 'We will soon be contacting you for further details.') ?>
+<?= \Yii::t('app', 'We will soon be contacting you for further details.');

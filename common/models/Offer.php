@@ -106,6 +106,10 @@ class Offer extends ActiveRecord
         return new OfferQuery(get_called_class());
     }
 
+    /**
+     * @param User $user
+     * @return ActiveDataProvider
+     */
     public static function getAll(User $user)
     {
         $query = static::find();
@@ -120,6 +124,9 @@ class Offer extends ActiveRecord
         return $provider;
     }
 
+    /**
+     * @return null|User
+     */
     public function getCreator()
     {
         return User::findOne($this->createdBy);

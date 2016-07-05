@@ -52,7 +52,6 @@ class AgentsController extends Controller
 
     public function actionActivate($id)
     {
-        /** @var User|null */
         $agent = User::findOne($id);
         if ($agent) {
             $agent->updateAttributes(['status' => !$agent->status]);

@@ -6,4 +6,4 @@ so make sure you are prepared.', [
     'beginDate' => \Yii::$app->formatter->asDate($beginDate),
 ]) ?>
 
-<?= \Yii::t('app', 'We will soon be contacting you for further details.') ?>
+<?= \Yii::t('app', 'We will soon be contacting you for further details.');

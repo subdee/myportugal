@@ -126,7 +126,6 @@ class OffersController extends Controller
 
     public function actionActivate($id)
     {
-        /** @var Offer|null */
         $offer = Offer::findOne($id);
         if ($offer) {
             $offer->updateAttributes(['active' => !$offer->active]);

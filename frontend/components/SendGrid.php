@@ -66,6 +66,10 @@ class SendGrid extends Component implements ViewContextInterface
         }
     }
 
+    /**
+     * @param $name
+     * @param $email
+     */
     public function setTo($name, $email)
     {
         $personalization = new Personalization();
@@ -73,6 +77,11 @@ class SendGrid extends Component implements ViewContextInterface
         $this->mailer->addPersonalization($personalization);
     }
 
+    /**
+     * @param $view
+     * @param array $params
+     * @param null|string $template
+     */
     public function setContent($view, $params = [], $template = null)
     {
         if (is_array($view)) {
@@ -93,11 +102,17 @@ class SendGrid extends Component implements ViewContextInterface
         }
     }
 
+    /**
+     * @param $subject
+     */
     public function setSubject($subject)
     {
         $this->mailer->setSubject($subject);
     }
 
+    /**
+     * @throws Exception
+     */
     public function send()
     {
         /** @var Response $response */
@@ -107,6 +122,14 @@ class SendGrid extends Component implements ViewContextInterface
         }
     }
 
+    /**
+     * @param $firstName
+     * @param $lastName
+     * @param $email
+     * @param $listId
+     * @throws Exception
+     * @return void
+     */
     public function addRecipientToList($firstName, $lastName, $email, $listId)
     {
         $query = (object)[
@@ -158,13 +181,13 @@ class SendGrid extends Component implements ViewContextInterface
      * The view will be rendered using the [[view]] component.
      * @param string $view the view name or the path alias of the view file.
      * @param array $params the parameters (name-value pairs) that will be extracted and made available in the view file.
-     * @param string|boolean $layout layout view name or path alias. If false, no layout will be applied.
+     * @param string $layout layout view name or path alias. If false, no layout will be applied.
      * @return string the rendering result.
      */
-    public function render($view, $params = [], $layout = false)
+    public function render($view, $params = [], $layout = '')
     {
         $output = $this->getView()->render($view, $params, $this);
-        if ($layout !== false) {
+        if ($layout !== '') {
             return $this->getView()->render($layout, ['content' => $output], $this);
         } else {
             return $output;

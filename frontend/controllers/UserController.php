@@ -107,14 +107,14 @@ class UserController extends Controller
      */
     public function actionSignup()
     {
-        /** @var Application */
+        /** @var Application $app */
         $app = Yii::$app;
         $model = new SignupForm();
-        if ($model->load($app->request->post())) {
-            if ($user = $model->signup()) {
-                if ($app->getUser()->login($user)) {
-                    return $this->goHome();
-                }
+        if ($model->load($app->request->post()) &&
+            $user = $model->signup()
+        ) {
+            if ($app->getUser()->login($user)) {
+                return $this->goHome();
             }
         }
 

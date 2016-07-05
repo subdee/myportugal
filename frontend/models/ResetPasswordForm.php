@@ -13,7 +13,7 @@ class ResetPasswordForm extends Model
     public $password;
 
     /**
-     * @var \common\models\User
+     * @var \common\models\User|bool
      */
     private $user;
 

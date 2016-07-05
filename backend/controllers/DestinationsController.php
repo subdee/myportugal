@@ -51,7 +51,6 @@ class DestinationsController extends Controller
 
     public function actionActivate($id)
     {
-        /** @var Destination|null */
         $destination = Destination::findOne($id);
         if ($destination) {
             $destination->updateAttributes(['active' => !$destination->active]);

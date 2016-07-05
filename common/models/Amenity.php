@@ -43,6 +43,9 @@ class Amenity extends Model
         ];
     }
 
+    /**
+     * @return array
+     */
     public static function getList()
     {
         return [
@@ -67,6 +70,9 @@ class Amenity extends Model
         ];
     }
 
+    /**
+     * @return void
+     */
     public function assignIcon()
     {
         switch ($this->type) {
@@ -125,7 +131,5 @@ class Amenity extends Model
                 $this->icon = 'map-icon map-icon-spa';
                 break;
         }
-
-        return parent::beforeValidate();
     }
 }
