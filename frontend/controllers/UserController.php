@@ -12,6 +12,7 @@ use yii\filters\VerbFilter;
 use yii\web\Application;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
+use yii\web\Request;
 
 class UserController extends Controller
 {
@@ -109,8 +110,10 @@ class UserController extends Controller
     {
         /** @var Application $app */
         $app = Yii::$app;
+        /** @var Request $request */
+        $request = Yii::$app->request;
         $model = new SignupForm();
-        if ($model->load($app->request->post()) &&
+        if ($model->load($request->post()) &&
             $user = $model->signup()
         ) {
             if ($app->getUser()->login($user)) {

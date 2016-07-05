@@ -25,7 +25,7 @@ class SendGrid extends Component implements ViewContextInterface
     public $from = null;
 
     /**
-     * @var string|boolean HTML layout view name. This is the layout used to render HTML mail body.
+     * @var string HTML layout view name. This is the layout used to render HTML mail body.
      * The property can take the following values:
      *
      * - a relative view name: a view file relative to [[viewPath]], e.g., 'layouts/html'.
@@ -35,7 +35,7 @@ class SendGrid extends Component implements ViewContextInterface
     public $htmlLayout = 'layouts/html';
 
     /**
-     * @var string|boolean text layout view name. This is the layout used to render TEXT mail body.
+     * @var string text layout view name. This is the layout used to render TEXT mail body.
      * Please refer to [[htmlLayout]] for possible values that this property can take.
      */
     public $textLayout = 'layouts/text';
@@ -80,9 +80,9 @@ class SendGrid extends Component implements ViewContextInterface
     /**
      * @param $view
      * @param array $params
-     * @param null|string $template
+     * @param string $template
      */
-    public function setContent($view, $params = [], $template = null)
+    public function setContent($view, $params = [], $template = '')
     {
         if (is_array($view)) {
             if (isset($view['html'])) {
@@ -97,7 +97,7 @@ class SendGrid extends Component implements ViewContextInterface
             $content = new Content('text/html', $this->render($view, $params, $this->htmlLayout));
             $this->mailer->addContent($content);
         }
-        if ($template) {
+        if ($template !== '') {
             $this->mailer->setTemplateId($template);
         }
     }
