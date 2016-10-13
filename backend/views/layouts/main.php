@@ -29,7 +29,7 @@ Icon::map($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => 'MyPortugal Backend',
+        'brandLabel' => 'Deals Supply Backend',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
@@ -54,7 +54,6 @@ Icon::map($this);
             'visible' => Yii::$app->user->identity->admin
         ];
         $menuItems[] = ['label' => Icon::show('tags') . ' Offers', 'url' => ['offers/index'], 'encode' => false];
-        $menuItems[] = ['label' => Icon::show('plane') . ' Destinations', 'url' => ['destinations/index'], 'encode' => false];
         $menuItems[] = [
             'label' => Icon::show('user-secret') . ' Agents',
             'url' => ['agents/index'],
@@ -85,9 +84,9 @@ Icon::map($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; MyPortugal.nl <?= date('Y') ?></p>
+        <p class="pull-left">&copy; deals-supply.nl <?= date('Y') ?></p>
 
-        <p class="pull-right"><a href="mailto:info@subdee.org?subject=MyPortugal%20Admin%20Support">Support</a></p>
+        <p class="pull-right"><a href="mailto:info@subdee.org?subject=Deals%20Supply%20Admin%20Support">Support</a></p>
     </div>
 </footer>
 

@@ -8,7 +8,7 @@ use kartik\icons\Icon;
 use yii\bootstrap\Html;
 use yii\helpers\Url;
 
-$this->title = 'My Portugal Backend';
+$this->title = 'Deals Supply Backend';
 ?>
 <div class="row">
     <?= Html::a('Create new', ['agents/add'], ['class' => 'btn btn-success']) ?>

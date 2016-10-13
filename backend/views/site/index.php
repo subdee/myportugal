@@ -2,7 +2,7 @@
 
 /* @var $this yii\web\View */
 
-$this->title = 'My Portugal Backend';
+$this->title = 'Deals Supply Backend';
 ?>
 <div class="site-index">
     
