@@ -129,7 +129,7 @@ class CustomOffer extends ActiveRecord
             'name' => $customOffer->firstName,
             'destination' => $customOffer->destination,
         ], Yii::$app->params['sendgrid']['templates']['main']);
-        $sendGrid->setSubject(Yii::t('app/emails', 'Your custom offer from Feriados.nl'));
+        $sendGrid->setSubject(Yii::t('app/emails', 'Your custom offer from Deals Supply'));
         try {
             $sendGrid->send();
         } catch (\Exception $e) {

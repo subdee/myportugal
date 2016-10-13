@@ -36,7 +36,7 @@ Icon::map($this);
                 <h2 class="entry-title"><?= Html::encode($this->title) ?></h2>
             </div>
             <ul class="breadcrumbs pull-right">
-                <li><a href="#">Feriados</a></li>
+                <li><a href="#">Deals Supply</a></li>
                 <li class="active"><?= Html::encode($this->title) ?></li>
             </ul>
         </div>

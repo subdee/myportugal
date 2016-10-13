@@ -9,14 +9,14 @@ return [
         ],
         'db' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=' . getenv('DB_HOST') . ';dbname=feriados',
+            'dsn' => 'mysql:host=' . getenv('DB_HOST') . ';dbname=dealssupply',
             'username' => getenv('DB_USER'),
             'password' => getenv('DB_PASSWORD'),
             'charset' => 'utf8',
         ],
         'mongodb' => [
             'class' => '\yii\mongodb\Connection',
-            'dsn' => 'mongodb://' . getenv('MONGO_HOST') . ':27017/feriados',
+            'dsn' => 'mongodb://' . getenv('MONGO_HOST') . ':27017/dealssupply',
         ],
         'formatter' => [
             'dateFormat' => 'dd.MM.yyyy',

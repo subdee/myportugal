@@ -169,7 +169,7 @@ class Booking extends ActiveRecord
             'destination' => $booking->offer->destination,
             'beginDate' => $booking->offer->flight->beginDepartureDate,
         ], Yii::$app->params['sendgrid']['templates']['main']);
-        $sendGrid->setSubject(Yii::t('app/emails', 'Your booking with Feriados.nl'));
+        $sendGrid->setSubject(Yii::t('app/emails', 'Your booking with Deals Supply'));
         try {
             $sendGrid->send();
         } catch (\Exception $e) {

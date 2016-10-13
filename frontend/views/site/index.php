@@ -54,12 +54,7 @@ $this->title = 'Deals Supply';
                                 ]) ?>
                                 <?= $form->field($model, 'duration') ?>
 
-                                <?= $form->field($model, 'destination')->dropDownList(
-                                    Destination::find()->select(['destination'])->where(['active' => 1])->indexBy('id')->column(),
-                                    [
-                                        'prompt' => 'Any destination'
-                                    ]
-                                ) ?>
+                                <?= $form->field($model, 'destination') ?>
 
                                 <?= $form->field($model, 'hotelType')->dropDownList(
                                     Hotel::getTypes(),

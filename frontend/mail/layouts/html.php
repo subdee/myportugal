@@ -3,4 +3,4 @@
 ?>
 <?= $content ?>
 
-Feriados.nl
+deals-supply.nl

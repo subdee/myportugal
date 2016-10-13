@@ -1,7 +1,7 @@
 <?php
 return [
-    'adminEmail' => 'admin@feriados.nl',
-    'supportEmail' => 'support@feriados.nl',
+    'adminEmail' => 'admin@deals-supply.nl',
+    'supportEmail' => 'support@deals-supply.nl',
     'user.passwordResetTokenExpire' => 3600,
     'icon-framework' => 'fa',
     'sendgrid' => [
