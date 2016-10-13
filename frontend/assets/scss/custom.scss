@@ -16,8 +16,8 @@ $action-yellow: rgba(214, 182, 75, 0.9);
     background: $grey-bg;
   }
   #main-menu ul.menu > li:first-child > a, #header.style2 #main-menu ul.menu > li.active > a, #header.style2 #main-menu ul.menu > li > a:hover {
-    background: linear-gradient(90deg, $red 50%, $green 50%);
     color: $white;
+    background: transparent;
     text-transform: none;
   }
   #main-menu ul.menu > li > a,
@@ -83,6 +83,10 @@ button.red, input[type="button"].button.red, a.button.red {
 
 .logoimg {
   vertical-align: inherit;
+  max-height: 48px;
+  a:hover & {
+    background: transparent;
+  }
 }
 
 .listing-style1, .listing-style3 {
@@ -109,25 +113,30 @@ button.red, input[type="button"].button.red, a.button.red {
   }
 }
 
-#footer, #footer .gray-area {
-  background: $grey-bg;
-  color: $white;
-  h2, .contact-phone {
+#footer {
+  .footer-wrapper {
+    padding: 10px 0;
+  }
+  #footer .gray-area {
+    background: $grey-bg;
     color: $white;
-    i {
-      color: $red;
-    }
-  }
-  input, button, select, textarea {
-    color: $grey-bg;
-  }
-  .bottom {
-    #back-to-top {
-      margin-top: 23px;
-      font-size: inherit;
-      color: inherit;
+    h2, .contact-phone {
+      color: $white;
       i {
-        font-weight: normal;
+        color: $red;
+      }
+    }
+    input, button, select, textarea {
+      color: $grey-bg;
+    }
+    .bottom {
+      #back-to-top {
+        margin-top: 23px;
+        font-size: inherit;
+        color: inherit;
+        i {
+          font-weight: normal;
+        }
       }
     }
   }

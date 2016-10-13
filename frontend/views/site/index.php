@@ -14,7 +14,7 @@ use yii\bootstrap\Button;
 use yii\bootstrap\Html;
 use yii\helpers\Url;
 
-$this->title = 'myportugal.nl - Homepage';
+$this->title = 'Deals Supply';
 ?>
 <div class="container">
     <div class="row action-buttons">
@@ -35,12 +35,6 @@ $this->title = 'myportugal.nl - Homepage';
     </div>
     <?php for ($i = 0; $i <= 1; $i++) : ?>
         <div class="row image-box listing-style1 flight">
-            <?php for ($j = 0; $j <= 2; $j++) : ?>
-                <?php if (isset($offers[($i * 3) + $j])) : ?>
-                    <?php $offer = $offers[($i * 3) + $j] ?>
-                    <?= OfferBoxWidget::widget(['offer' => $offer]) ?>
-                <?php endif; ?>
-            <?php endfor; ?>
             <?php if ($i === 0) : ?>
                 <div class="col-sm-6 col-md-3">
                     <article class="box travel-search-form">
@@ -85,18 +79,13 @@ $this->title = 'myportugal.nl - Homepage';
                         </div>
                     </article>
                 </div>
-            <?php elseif ($i === 1) : ?>
-                <div class="col-sm-6 col-md-3">
-                    <article class="box destinations">
-                        <h3><?= Yii::t('app', 'Destinations') ?></h3>
-                        <ul>
-                            <?php foreach ($destinations as $destination) : ?>
-                                <li><a href="#"><?= $destination->destination ?></a></li>
-                            <?php endforeach; ?>
-                        </ul>
-                    </article>
-                </div>
             <?php endif; ?>
+            <?php for ($j = 0; $j <= 2; $j++) : ?>
+                <?php if (isset($offers[($i * 3) + $j])) : ?>
+                    <?php $offer = $offers[($i * 3) + $j] ?>
+                    <?= OfferBoxWidget::widget(['offer' => $offer]) ?>
+                <?php endif; ?>
+            <?php endfor; ?>
         </div>
     <?php endfor; ?>
 </div>
@@ -104,75 +93,45 @@ $this->title = 'myportugal.nl - Homepage';
 <div class="global-map-area mobile-section parallax" data-stellar-background-ratio="0.5">
     <div class="container">
         <div class="table-wrapper hidden-table-sm">
-            <div class="col-md-6 description section table-cell">
-                <h1><?= Yii::t('app', 'MyPortugal.nl Header') ?></h1>
-                <div class="review clearfix">
-                    <div class="five-stars-container pull-left">
-                        <div class="five-stars transparent-bg" style="width: 100%;"></div>
-                    </div>
-                    &nbsp;&nbsp;&nbsp;<label>
-                        <small class="white-color uppercase">
-                            <?= Yii::t('app', '{n,plural,=1{1 user rating} other{# user ratings}}', [
-                                'n' => 455
-                            ]) ?>
-                        </small>
-                    </label>
-                </div>
+            <div class="col-md-12 description section table-cell">
+                <h1><?= Yii::t('app', 'About Deals Supply') ?></h1>
                 <br>
-                <p><?= Yii::t('app', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
-                    Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur
-                    ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla
-                    consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget,
-                    arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu
-                    pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean
-                    vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac,
-                    enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra
-                    nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel
-                    augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus,
-                    tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed
-                    ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio
-                    et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante.
-                    Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet
-                    nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit
-                    cursus nunc,') ?></p>
-            </div>
-            <div class="col-md-6 image-wrapper table-cell hidden-sm">
-                <?= Html::img('@web/images/cities.jpg', [
-                    'class' => 'animated',
-                    'data-animation-type' => 'fadeInUp'
-                ]) ?>
+                <h3>Who are we?</h3>
+                <p>A small team of travel professionals combining experience and enthusiasm, dedicated only on providing
+                    handpicked travel deals to selected deal sites and indiviadual clients, all over the world. We are
+                    mainly dedicated on B2B channel sales, however, you may book some of our special deals every week,
+                    directly with us too.</p>
+                <p>We do not believe in mass sales but in the combination of quality holiday proposals for selected
+                    accomodation. We stay away from cheap-low quality accomodation with bad reviews proposed only to
+                    create sales. We only provide review checked accomodation. Above all, we KNOW the destination and
+                    what we offer. With all our respect to our competition, we know that sometimes while booking you end
+                    up talking to an intern that has no idea where Kos is.... Our small team, working mobile, avoiding
+                    the high expenses of a luxurious office and of a huge staff, knows what we offer, when to offer it
+                    and what fits best to your holidays expectations.</p>
+                <p>No 9-5 working hours here...You can contact us 24/7 and we guarantee you our reply within 24
+                    hours.</p>
+                <h3>Company's Philosophy</h3>
+                <p>Selected holiday deal proposals - better value for money = satisfied clients.</p>
+                <p>We are passionate with what we do and we do it always thinking that this coud have been OUR
+                    holiday.</p>
+                <h3>History of our team</h3>
+                <p>A small team combining the experience of some of our team members in the field of tourism and the
+                    enthusiasm of our younger members.</p>
+                <p>Our team members, have worked in key positions in the travel industry, like contract managers,
+                    product managers, reservation supervisors. From their experience they can contribute the best when
+                    it comes to holiday offers.</p>
             </div>
         </div>
     </div>
-</div>
-
-<div class="container section">
-    <h2>MyPortugal.nl Photo Gallery</h2>
-    <div class="flexslider image-carousel style2 row-2" data-animation="slide" data-item-width="170"
-         data-item-margin="30">
-        <ul class="slides">
-            <?php for ($i = 1; $i <= 7; $i++) : ?>
-                <li>
-                    <a href="#" class="hover-effect">
-                        <?= Html::img('@web/images/foto.jpg') ?>
-                        <p class="caption">Praia da Marinha</p>
-                    </a>
-                </li>
-            <?php endfor; ?>
-        </ul>
-    </div>
-</div>
-
-<div class="global-map-area section parallax" data-stellar-background-ratio="0.5">
     <div class="container description">
-        <h1 class="text-center box">Why MyPortugal.nl</h1>
+        <h1 class="text-center box">Why Deals Supply</h1>
         <div class="row">
             <div class="col-xs-6 col-sm-3">
                 <div class="icon-box style8 animated" data-animation-type="slideInUp" data-animation-delay="0">
                     <?= Icon::show('bed') ?>
-                    <h4 class="box-title">135,000+ Hotels</h4>
+                    <h4 class="box-title">No reservation costs</h4>
                     <p class="description">
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                        We are not hiding behind set rules to charge you for changes, cancellations or modifications of your booking.
                     </p>
                 </div>
             </div>
@@ -180,9 +139,9 @@ $this->title = 'myportugal.nl - Homepage';
                 <div class="icon-box style8 animated" data-animation-type="slideInUp"
                      data-animation-delay="0.6">
                     <?= Icon::show('check-square-o') ?>
-                    <h4 class="box-title">Low Rates &amp; Top Savings</h4>
+                    <h4 class="box-title">Book now, pay later</h4>
                     <p class="description">
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                        Our rates are checked to offer the best price in the net
                     </p>
                 </div>
             </div>
@@ -190,9 +149,9 @@ $this->title = 'myportugal.nl - Homepage';
                 <div class="icon-box style8 animated" data-animation-type="slideInUp"
                      data-animation-delay="0.9">
                     <?= Icon::show('star') ?>
-                    <h4 class="box-title">Reviewed by Real Travellers</h4>
+                    <h4 class="box-title">Personalized service</h4>
                     <p class="description">
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                        Direct contracts with suppliers
                     </p>
                 </div>
             </div>
@@ -200,9 +159,9 @@ $this->title = 'myportugal.nl - Homepage';
                 <div class="icon-box style8 animated" data-animation-type="slideInUp"
                      data-animation-delay="1.2">
                     <?= Icon::show('phone-square') ?>
-                    <h4 class="box-title">We Speak your Language</h4>
+                    <h4 class="box-title">24/7 customer service</h4>
                     <p class="description">
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                        You can contact us as often as you wish
                     </p>
                 </div>
             </div>

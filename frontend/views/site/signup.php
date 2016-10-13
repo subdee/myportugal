@@ -5,7 +5,7 @@
 use kartik\form\ActiveForm;
 use yii\bootstrap\Html;
 
-$this->title = 'myportugal.nl - Homepage';
+$this->title = 'deals-supply.nl - Homepage';
 ?>
 <div class="container">
     <div class="row">

@@ -62,15 +62,4 @@ $this->title = Yii::t('app', 'Custom offer');
             <?php ActiveForm::end() ?>
         </div>
     </div>
-    <div class="sidebar col-sms-6 col-sm-4 col-md-3">
-        <div class="travelo-box contact-box">
-            <h4>Need MyPortugal.nl Help?</h4>
-            <p>We would be more than happy to help you. Our team advisor are 24/7 at your service to help you.</p>
-            <address class="contact-details">
-                <span class="contact-phone"><i class="soap-icon-phone"></i> 010-123-4567</span>
-                <br>
-                <a class="contact-email" href="#">help@MyPortugal.nl</a>
-            </address>
-        </div>
-    </div>
 </div>

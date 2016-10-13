@@ -12,17 +12,11 @@ use yii\helpers\Url;
                     <ul class="menu">
                         <li>
                             <a href="<?= Url::toRoute(['site/index']) ?>">
-                                <?= Html::img('@web/images/logo-inverse.png', [
+                                <?= Html::img('@web/images/logo.png', [
                                     'class' => 'logoimg',
-                                    'alt' => 'MyPortugal Logo'
+                                    'alt' => 'Deals Supply Logo'
                                 ]) ?>
                             </a>
-                        </li>
-                        <li>
-                            <a href="#"><?= Yii::t('app', 'Fly & Drives') ?></a>
-                        </li>
-                        <li>
-                            <a href="#"><?= Yii::t('app', 'Authentic Portugal - Pusadas and more') ?></a>
                         </li>
                     </ul>
                 </nav>
@@ -47,7 +41,7 @@ use yii\helpers\Url;
             <nav id="mobile-menu-01" class="mobile-menu collapse">
                 <ul id="mobile-primary-menu" class="menu">
                     <li>
-                        <a href="index.html">MYPORTUGAL.NL</a>
+                        <a href="index.html">Deals Supply</a>
                     </li>
                 </ul>
 

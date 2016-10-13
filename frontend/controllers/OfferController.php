@@ -45,8 +45,7 @@ class OfferController extends Controller
         $model->newsletter = true;
 
         if ($model->load(Yii::$app->request->post()) &&
-            ($booking = $model->save($offer)) !== false &&
-            $this->createPayment($booking) === false
+            ($booking = $model->save($offer)) !== false
         ) {
             Yii::$app->session->setFlash('error', [
                 'type' => Growl::TYPE_DANGER,
@@ -62,69 +61,6 @@ class OfferController extends Controller
         return $this->render('book', ['offer' => $offer, 'model' => $model]);
     }
 
-    public function actionAfterPayment($success)
-    {
-        if (!$success) {
-            throw new HttpException(404, 'Paypal transaction was not successful');
-        }
-
-        /** @var Paypal $paypal */
-        $paypal = Yii::$app->paypal;
-
-        $paymentId = Yii::$app->request->get('paymentId');
-        $payment = Payment::get($paymentId, $paypal->getContext());
-
-        $booking = Booking::findOne($payment->getTransactions()[0]->getInvoiceNumber());
-        if (!$booking) {
-            return $this->redirect(['site/index']);
-        }
-
-        try {
-
-            $execution = new PaymentExecution();
-            $execution->setPayerId(Yii::$app->request->get('PayerID'));
-            $payment->execute($execution, $paypal->getContext());
-            $payment = Payment::get($paymentId, $paypal->getContext());
-
-            $saleState = $payment->getTransactions()[0]->getRelatedResources()[0]->getSale()->getState();
-            if ($saleState !== 'completed') {
-                throw new \Exception('Paypal sale state is ' . $saleState);
-            }
-
-            $booking->completedOn = time();
-            $booking->status = Booking::STATUS_PAID;
-
-            $booking->trigger(Booking::EVENT_AFTER_PAYMENT);
-
-            Yii::$app->session->setFlash('success', [
-                'type' => Growl::TYPE_SUCCESS,
-                'icon' => 'fa fa-check',
-                'title' => Yii::t('app', 'Payment succeeded'),
-                'message' => Yii::t(
-                    'app',
-                    'Thank you, {name}. Your booking is completed! One of our agents will contact you soon for the details.',
-                    ['name' => $booking->firstName]
-                ),
-            ]);
-        } catch (\Exception $e) {
-            Yii::error('Paypal payment failed: ' . $e->getMessage());
-            Yii::$app->session->setFlash('error', [
-                'type' => Growl::TYPE_DANGER,
-                'icon' => 'fa fa-ban',
-                'title' => Yii::t('app', 'Payment failed'),
-                'message' => Yii::t(
-                    'app',
-                    'Your payment failed. Please try booking again or contact customer support for further assistance.'
-                ),
-            ]);
-            $booking->status = Booking::STATUS_FAILED;
-        }
-
-        $booking->save(false);
-
-        return $this->redirect(['site/index']);
-    }
-
     public function actionSearch()
     {
         $travelSearch = new TravelSearchForm();
@@ -135,63 +71,5 @@ class OfferController extends Controller
         }
 
         return $this->render('search', ['offers' => $offers]);
-    }
-
-    private function createPayment(Booking $booking)
-    {
-        $payer = new Payer();
-        $payer->setPaymentMethod("paypal");
-
-        $item = new Item();
-        $item->setName(Yii::t('app', 'Booking {n,plural,=1{1 adult} other{# adults}} for {offer}', [
-            'n' => $booking->adults,
-            'offer' => $booking->offer->title
-        ]))
-            ->setCurrency(Yii::$app->formatter->currencyCode)
-            ->setQuantity($booking->adults)
-            ->setPrice($booking->offer->price);
-
-        $itemList = new ItemList();
-        $itemList->setItems([$item]);
-
-        $amount = new Amount();
-        $amount->setCurrency(Yii::$app->formatter->currencyCode)
-            ->setTotal($booking->offer->price * $booking->adults);
-
-        $transaction = new Transaction();
-        $transaction->setAmount($amount)
-            ->setItemList($itemList)
-            ->setDescription('Payment for booking ' . (string)$booking->_id)
-            ->setInvoiceNumber((string)$booking->_id);
-
-        $redirectUrls = new RedirectUrls();
-        $redirectUrls->setReturnUrl(Url::to(['offer/after-payment', 'success' => 1], true))
-            ->setCancelUrl(Url::to(['offer/after-payment', 'success' => 0], true));
-
-        $payment = new Payment();
-        $payment->setIntent("sale")
-            ->setPayer($payer)
-            ->setRedirectUrls($redirectUrls)
-            ->setTransactions([$transaction]);
-
-        $booking->payment = (object)[
-            'invoice_number' => $transaction->getInvoiceNumber(),
-            'amount' => $transaction->getAmount()->getTotal(),
-        ];
-        $booking->save(false);
-
-        try {
-            /** @var Paypal $paypal */
-            $paypal = Yii::$app->paypal;
-            $payment->create($paypal->getContext());
-        } catch (\Exception $e) {
-            Yii::error('Paypal initialization failed: ' . $e->getMessage());
-
-            return false;
-        }
-
-        $approvalUrl = $payment->getApprovalLink();
-
-        return $this->redirect($approvalUrl);
     }
 }

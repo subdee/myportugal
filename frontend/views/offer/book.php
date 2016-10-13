@@ -70,15 +70,6 @@ $this->title = Yii::t('app', 'Book {offer}', ['offer' => $offer->title]);
                 </div>
             </div>
             <hr/>
-            <div class="card-information">
-                <h2><?= Yii::t('app', 'Payment information') ?></h2>
-                <div class="form-group row">
-                    <div class="col-sm-6 col-md-5">
-                        Select payment method
-                    </div>
-                </div>
-            </div>
-            <hr/>
             <div class="form-group">
                 <?= $form->field($model, 'termsAndConditions')->checkbox([
                     'label' => Yii::t('app/forms', 'By continuing, you agree to the {termsAndCondsLink}', [
@@ -95,10 +86,7 @@ $this->title = Yii::t('app', 'Book {offer}', ['offer' => $offer->title]);
             </div>
             <div class="form-group row">
                 <div class="col-sm-6 col-md-5">
-                    <a href="#" onclick="$('#booking-form').submit(); return false;">
-                        <img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" align="left"
-                             style="margin-right:7px;">
-                    </a>
+                    <?= Html::submitButton(\Yii::t('app/forms', 'Make request')) ?>
                 </div>
             </div>
             <?php ActiveForm::end() ?>
@@ -163,16 +151,6 @@ $this->title = Yii::t('app', 'Book {offer}', ['offer' => $offer->title]);
                     ]) ?>
                 </dd>
             </dl>
-        </div>
-
-        <div class="travelo-box contact-box">
-            <h4>Need MyPortugal.nl Help?</h4>
-            <p>We would be more than happy to help you. Our team advisor are 24/7 at your service to help you.</p>
-            <address class="contact-details">
-                <span class="contact-phone"><i class="soap-icon-phone"></i> 010-123-4567</span>
-                <br>
-                <a class="contact-email" href="#">help@MyPortugal.nl</a>
-            </address>
         </div>
     </div>
 </div>

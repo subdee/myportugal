@@ -175,36 +175,6 @@ $this->title = $offer->title;
                     </a>
                 </div>
             </article>
-            <div class="travelo-box contact-box">
-                <h4><?= Yii::t('app', 'Need MyPortugal.nl Help?') ?></h4>
-                <p><?= Yii::t('app',
-                        'We would be more than happy to help you. Our team advisor are 24/7 at your service to help you.') ?></p>
-                <address class="contact-details">
-                    <span class="contact-phone"><i class="soap-icon-phone"></i> 010-123-4567</span>
-                    <br>
-                    <a class="contact-email" href="#">help@MyPortugal.nl.com</a>
-                </address>
-            </div>
-            <div class="travelo-box book-with-us-box">
-                <h4><?= Yii::t('app', 'Why Book with us?') ?></h4>
-                <ul>
-                    <li>
-                        <?= Icon::show('bed') ?>
-                        <h5 class="title"><a href="#"><?= Yii::t('app', '135+ Hotels') ?></a></h5>
-                        <p><?= Yii::t('app', 'Nunc cursus libero pur congue arut nimspnty.') ?></p>
-                    </li>
-                    <li>
-                        <?= Icon::show('usd') ?>
-                        <h5 class="title"><a href="#"><?= Yii::t('app', 'Low Rates & Savings') ?></a></h5>
-                        <p><?= Yii::t('app', 'Nunc cursus libero pur congue arut nimspnty.') ?></p>
-                    </li>
-                    <li>
-                        <?= Icon::show('life-ring') ?>
-                        <h5 class="title"><a href="#"><?= Yii::t('app', 'Excellent Support') ?></a></h5>
-                        <p><?= Yii::t('app', 'Nunc cursus libero pur congue arut nimspnty.') ?></p>
-                    </li>
-                </ul>
-            </div>
         </div>
     </div>
 </div>
